@@ -28,7 +28,7 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	check_neighbors()
+	check_neighbors(delta * 1000)
 	check_sides()
 	
 	velocity = velocity.normalized() * speed
@@ -42,7 +42,7 @@ func _process(delta):
 func check_sides():
 	pass
 
-func check_neighbors():
+func check_neighbors(delta):
 	if visible_boids:
 		var n_boids = visible_boids.size()
 		var avg_velocity = Vector2.ZERO
@@ -58,9 +58,9 @@ func check_neighbors():
 		avg_position /= n_boids
 		avg_velocity /= n_boids
 		
-		velocity += steer_away
-		velocity += (avg_velocity - velocity) / 2
-		velocity += (avg_position - position)
+		velocity += steer_away * delta
+		velocity = lerp(velocity, avg_velocity, 0.5 * delta)
+		velocity += (avg_position - position) * delta
 	
 func move(delta):
 	global_position += velocity * delta
