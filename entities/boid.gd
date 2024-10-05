@@ -72,26 +72,27 @@ func check_neighbors(delta):
 		var avg_velocity = Vector2.ZERO
 		var avg_position = Vector2.ZERO
 		var steer_away = Vector2.ZERO
+		var prey_steer_away = Vector2.ZERO
 		
 		var prey_found = false
 		
 		for b in visible_boids:
 			var boid : Boid = b
 			
-			var pos_offset1 = (b.global_position - global_position) + Vector2(0.000,0.001)
-			var pos_offset2 = (global_position - b.global_position) + Vector2(0.000,0.001)
-			var sta_dir = (pos_offset1) * (48 / ((pos_offset2)).length()) # Steer away direction
-			
-			steer_away -= sta_dir
+			# Steer away direction: "force" that pushes boids away from each other
+			# The closer the boids, the further they are pushed apart
+			var pos_offset = max((b.global_position - global_position), Vector2(0.000,0.001))
+			var sta_dir = (pos_offset) * (48 / ((-pos_offset)).length())
 			
 			avg_position += b.position
 			avg_velocity += b.velocity
 			
 			# If we're on the same team or too weak to kill opponent
 			if team == b.team or priority <= b.priority:
-				pass
+				steer_away -= sta_dir
 			else: # We're predators. Go for the kill.
 				prey_found = true
+				prey_steer_away += sta_dir
 				
 		
 		avg_position /= n_boids
@@ -100,6 +101,8 @@ func check_neighbors(delta):
 		# Steer away from neighbors
 		if !prey_found:
 			velocity += steer_away * delta
+		else:
+			velocity += prey_steer_away * delta * 5
 		# Match neighbors velocity
 		velocity = lerp(velocity, avg_velocity, 0.5 * delta)
 		# Steer towards neighbors position

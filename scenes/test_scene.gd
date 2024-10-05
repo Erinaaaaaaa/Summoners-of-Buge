@@ -8,15 +8,7 @@ var max_boids = 120
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	for i in range(50):
-		var added : Boid = add_boid(Vector2(300,400))
-		added.damage_priority = 0
-		added.team = Enums.Team.BLUE
-	for i in range(50):
-		var added : Boid = add_boid(Vector2(1000,400))
-		added.damage_priority = 1
-		added.modulate = Color(255,0,0)
-		added.team = Enums.Team.RED
+	pass
 
 
 func add_boid(position):

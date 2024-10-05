@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://c6p3qanqbhxjk"]
 
 [ext_resource type="Script" path="res://scenes/test_scene.gd" id="1_i61e3"]
-[ext_resource type="PackedScene" uid="uid://nnv4aue8jhay" path="res://entities/Boid.tscn" id="1_o2amn"]
+[ext_resource type="PackedScene" uid="uid://cq8v50q305aai" path="res://entities/Boid.tscn" id="1_o2amn"]
 [ext_resource type="Script" path="res://addons/donut_collision_polygon2D/donut_collision_rectangle2D.gd" id="3_638ua"]
 [ext_resource type="PackedScene" uid="uid://bapgpu1bqvnw3" path="res://entities/wizard.tscn" id="4_pqbjr"]
 [ext_resource type="Texture2D" uid="uid://crwe80e7wup" path="res://sprites/environment/map_basic.png" id="5_h5wf8"]
@@ -20,7 +20,6 @@ script = ExtResource("3_638ua")
 
 [node name="Wizard" parent="." node_paths=PackedStringArray("boid_node") instance=ExtResource("4_pqbjr")]
 position = Vector2(300, 400)
-team = 0
 boid_node = NodePath("../Boids")
 boid_scene = ExtResource("1_o2amn")
 

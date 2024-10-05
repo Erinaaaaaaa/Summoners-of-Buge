@@ -37,9 +37,23 @@ func create_boid():
 	var angle = randf_range(0, 2*PI)
 	var distance = randf_range(30, 180)
 	
-	var instance: Node2D = boid_scene.instantiate()
+	var instance: Boid = boid_scene.instantiate()
 	var local_pos = Vector2.RIGHT.rotated(angle) * distance
 	instance.position = local_pos
+	
+	#temp
+	if team == Enums.Team.BLUE:
+		instance.team = Enums.Team.RED
+	elif team == Enums.Team.RED:
+		instance.team = Enums.Team.BLUE
+	
+	#temp
+	if instance.team == Enums.Team.BLUE:
+		instance.modulate = Color(0,0,255)
+		instance.damage_priority = 0
+	elif instance.team == Enums.Team.RED:
+		instance.modulate = Color(255,0,0)
+		instance.damage_priority = 1
 	
 	my_boids.append(instance)
 	add_child(instance)
