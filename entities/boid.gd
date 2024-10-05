@@ -27,6 +27,7 @@ var visible_boids : Array[Area2D]
 var current_behavior = Behavior.NEUTRAL
 var steer_towards = Vector2()
 
+var max_delta = 1.0/60
 var enabled = true
 
 # ---------------------------------
@@ -38,15 +39,16 @@ func _ready():
 	
 	current_behavior = Behavior.NEUTRAL
 
-func _physics_process(delta):
+func _process(delta: float):
 	if !enabled: return
+	var eff_delta = min(max_delta, delta)
 	
-	check_neighbors(delta * 10)
-	check_sides(delta)
+	check_neighbors(eff_delta * 10)
+	check_sides(eff_delta)
 	
 	velocity = velocity.normalized() * speed
 	
-	move(delta)
+	move(eff_delta)
 	
 	rotation = velocity.normalized().angle()
 
@@ -119,12 +121,10 @@ func delete():
 	queue_free()
 
 func _on_vision_area_entered(area : Area2D):
-	return
 	if area != self and area.is_in_group("boid") and visible_boids.size() < max_boids_vision:
 		visible_boids.append(area)
 
 
 func _on_vision_area_exited(area):
-	return
 	if area != self and area.is_in_group("boid"):
 		visible_boids.erase(area)
