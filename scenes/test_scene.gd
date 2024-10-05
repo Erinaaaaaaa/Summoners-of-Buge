@@ -3,7 +3,7 @@ extends Node2D
 @export var boid_scene : PackedScene
 
 var boids = []
-var max_boids = 100000
+var max_boids = 120
 
 
 # Called when the node enters the scene tree for the first time.
@@ -26,7 +26,7 @@ func add_boid(position):
 		boids.remove_at(0)
 		
 		print("removing " + str(to_remove))
-		to_remove.queue_free()
+		to_remove.delete()
 	
 	
 

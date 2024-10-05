@@ -27,6 +27,8 @@ var visible_boids : Array[Area2D]
 var current_behavior = Behavior.NEUTRAL
 var steer_towards = Vector2()
 
+var enabled = true
+
 # ---------------------------------
 
 # Called when the node enters the scene tree for the first time.
@@ -36,8 +38,9 @@ func _ready():
 	
 	current_behavior = Behavior.NEUTRAL
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _physics_process(delta):
+	if !enabled: return
+	
 	check_neighbors(delta * 10)
 	check_sides(delta)
 	
@@ -46,13 +49,17 @@ func _process(delta):
 	move(delta)
 	
 	rotation = velocity.normalized().angle()
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
 	
 
 
 func check_sides(delta):
 	for r in raycasts_node.get_children():
 		var ray : RayCast2D = r
-		if ray.is_colliding():
+		if ray.get_collider() and ray.is_colliding():
 			if ray.get_collider().is_in_group("solid") or ray.get_collider().is_in_group(get_pool_area_name()):
 				var magi = 100 / (r.get_collision_point() - global_position).length_squared() # magi = magnitude
 				velocity -= (r.target_position.rotated(rotation) * magi)
@@ -106,6 +113,10 @@ func get_pool_area_name():
 		return "blue_pool_area"
 		
 	return "unknown"
+
+func delete():
+	enabled = false
+	queue_free()
 
 func _on_vision_area_entered(area : Area2D):
 	return
