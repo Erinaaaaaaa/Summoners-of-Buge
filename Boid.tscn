@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://nnv4aue8jhay"]
+[gd_scene load_steps=7 format=3 uid="uid://cq8v50q305aai"]
 
 [ext_resource type="Script" path="res://boid.gd" id="1_q72bb"]
 [ext_resource type="Texture2D" uid="uid://cs7x6446i6ncq" path="res://sprites/monito-0.png" id="2_slkuv"]
