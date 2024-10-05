@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://vmkwlc5o2wc2" path="res://sprites/monito-1.png" id="3_sm2qn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bgsxf"]
-size = Vector2(60, 30)
+size = Vector2(20, 10)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_i6dl7"]
 animations = [{
@@ -27,19 +27,19 @@ size = Vector2(134, 71)
 [node name="Boid" type="Area2D" node_paths=PackedStringArray("sprite", "raycastFrontL", "raycastFrontR", "raycastSideL", "raycastSideR", "vision_area") groups=["boid"]]
 script = ExtResource("1_q72bb")
 sprite = NodePath("Sprite")
-raycastFrontL = NodePath("Raycast/FrontL")
-raycastFrontR = NodePath("Raycast/FrontR")
-raycastSideL = NodePath("Raycast/SideL")
-raycastSideR = NodePath("Raycast/SideR")
+raycastFrontL = NodePath("Raycasts/FrontL")
+raycastFrontR = NodePath("Raycasts/FrontR")
+raycastSideL = NodePath("Raycasts/SideL")
+raycastSideR = NodePath("Raycasts/SideR")
 vision_area = NodePath("Vision")
 speed = 400
 
 [node name="CollisionShape" type="CollisionShape2D" parent="."]
-position = Vector2(0, 3)
+position = Vector2(-1, 1)
 shape = SubResource("RectangleShape2D_bgsxf")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
-scale = Vector2(0.3, 0.3)
+scale = Vector2(0.1, 0.1)
 sprite_frames = SubResource("SpriteFrames_i6dl7")
 frame = 1
 frame_progress = 0.333124
@@ -49,18 +49,18 @@ frame_progress = 0.333124
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Vision"]
 shape = SubResource("RectangleShape2D_6ts7m")
 
-[node name="Raycast" type="Node2D" parent="."]
+[node name="Raycasts" type="Node2D" parent="."]
 
-[node name="FrontL" type="RayCast2D" parent="Raycast"]
+[node name="FrontL" type="RayCast2D" parent="Raycasts"]
 target_position = Vector2(65, -10)
 
-[node name="FrontR" type="RayCast2D" parent="Raycast"]
+[node name="FrontR" type="RayCast2D" parent="Raycasts"]
 target_position = Vector2(60, 10)
 
-[node name="SideL" type="RayCast2D" parent="Raycast"]
+[node name="SideL" type="RayCast2D" parent="Raycasts"]
 target_position = Vector2(0, -40)
 
-[node name="SideR" type="RayCast2D" parent="Raycast"]
+[node name="SideR" type="RayCast2D" parent="Raycasts"]
 target_position = Vector2(0, 40)
 
 [connection signal="area_entered" from="Vision" to="." method="_on_vision_area_entered"]

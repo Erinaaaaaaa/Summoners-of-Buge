@@ -1,6 +1,11 @@
 extends Area2D
 class_name Boid
 
+enum Behavior {
+	NEUTRAL,
+	FOLLOW
+}
+
 @export_category("Visual")
 @export var sprite : AnimatedSprite2D
 
@@ -19,17 +24,23 @@ class_name Boid
 
 # --------------------------------
 var visible_boids : Array[Area2D]
+
+var current_behavior = Behavior.NEUTRAL
+var steer_towards = Vector2()
+
 # ---------------------------------
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	#Initial velocity
 	velocity = Vector2(randf_range(-1,1), randf_range(-1,1)) * speed
+	
+	current_behavior = Behavior.FOLLOW
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	check_neighbors(delta * 10)
-	check_sides()
+	check_sides(delta)
 	
 	velocity = velocity.normalized() * speed
 	
@@ -39,7 +50,7 @@ func _process(delta):
 	
 
 
-func check_sides():
+func check_sides(delta):
 	pass
 
 func check_neighbors(delta):
@@ -58,9 +69,17 @@ func check_neighbors(delta):
 		avg_position /= n_boids
 		avg_velocity /= n_boids
 		
+		# Steer away from neighbors
 		velocity += steer_away * delta
+		# Match neighbors velocity
 		velocity = lerp(velocity, avg_velocity, 0.5 * delta)
+		# Steer towards neighbors position
 		velocity += (avg_position - position) * delta
+		
+	
+	# Steer towards goal
+	if current_behavior == Behavior.FOLLOW: 
+		velocity += (steer_towards - position) * delta
 	
 func move(delta):
 	global_position += velocity * delta
