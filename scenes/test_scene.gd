@@ -3,13 +3,16 @@ extends Node2D
 @export var boid_scene : PackedScene
 
 var boids = []
-var max_boids = 100000
+var max_boids = 120
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	for i in range(100):
-		pass #add_boid(Vector2(50,50))
+	return #somehow the 100 boids created here don't spawn? 
+	for i in range(50):
+		add_boid(Vector2(300,400))
+	for i in range(50):
+		add_boid(Vector2(1000,400))
 
 
 func add_boid(position):
@@ -26,7 +29,7 @@ func add_boid(position):
 		boids.remove_at(0)
 		
 		print("removing " + str(to_remove))
-		to_remove.queue_free()
+		to_remove.delete()
 	
 	
 
