@@ -1,0 +1,34 @@
+[gd_scene load_steps=5 format=3 uid="uid://b4shdiav5mhi0"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_hmcsq"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_lmdc7"]
+sky_top_color = Color(0, 0.229167, 0.55, 1)
+sky_curve = 0.139955
+sky_energy_multiplier = 1.25
+sun_angle_max = 37.3
+
+[sub_resource type="Sky" id="Sky_scfnr"]
+sky_material = SubResource("ProceduralSkyMaterial_lmdc7")
+
+[sub_resource type="Environment" id="Environment_cpmr5"]
+background_mode = 2
+background_color = Color(0.120957, 0.212149, 0.254433, 1)
+sky = SubResource("Sky_scfnr")
+ambient_light_source = 3
+adjustment_brightness = 1.2
+adjustment_contrast = 1.8
+adjustment_saturation = 2.4
+
+[node name="Node3D" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_hmcsq")
+
+[node name="Camera3D" type="Camera3D" parent="MeshInstance3D"]
+transform = Transform3D(0.658689, -0.0655773, 0.749552, 0, 0.996195, 0.0871557, -0.752415, -0.0574086, 0.656183, 3, 1, 3)
+environment = SubResource("Environment_cpmr5")
+fov = 56.4332
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.387516, 0.10116, -0.916296, 0, 0.993961, 0.109734, 0.921863, 0.0425238, -0.385175, -2.00103, 2.39928, 0)
