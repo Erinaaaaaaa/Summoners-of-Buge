@@ -1,35 +1,45 @@
 extends Area2D
 class_name Boid
 
+enum Behavior {
+	NEUTRAL,
+	FOLLOW
+}
+
 @export_category("Visual")
 @export var sprite : AnimatedSprite2D
 
 @export_category("Raycasts")
-@export var raycastFrontL : RayCast2D
-@export var raycastFrontR : RayCast2D
-@export var raycastSideL : RayCast2D
-@export var raycastSideR : RayCast2D
+@export var raycasts_node : Node2D
 
 @export_category("Zones")
 @export var vision_area : Area2D
 
 @export_category("General")
 @export var velocity = Vector2()
-@export var speed = 100
+@export var speed = 50
+@export var team = Enums.Team.RED
+@export var max_boids_vision = 5
 
 # --------------------------------
 var visible_boids : Array[Area2D]
+
+var current_behavior = Behavior.NEUTRAL
+var steer_towards = Vector2()
+
 # ---------------------------------
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	#Initial velocity
 	velocity = Vector2(randf_range(-1,1), randf_range(-1,1)) * speed
+	
+	current_behavior = Behavior.NEUTRAL
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	check_neighbors()
-	check_sides()
+	check_neighbors(delta * 10)
+	check_sides(delta)
 	
 	velocity = velocity.normalized() * speed
 	
@@ -39,10 +49,15 @@ func _process(delta):
 	
 
 
-func check_sides():
-	pass
+func check_sides(delta):
+	for r in raycasts_node.get_children():
+		var ray : RayCast2D = r
+		if ray.is_colliding():
+			if ray.get_collider().is_in_group("solid") or ray.get_collider().is_in_group(get_pool_area_name()):
+				var magi = 100 / (r.get_collision_point() - global_position).length_squared() # magi = magnitude
+				velocity -= (r.target_position.rotated(rotation) * magi)
 
-func check_neighbors():
+func check_neighbors(delta):
 	if visible_boids:
 		var n_boids = visible_boids.size()
 		var avg_velocity = Vector2.ZERO
@@ -58,13 +73,22 @@ func check_neighbors():
 		avg_position /= n_boids
 		avg_velocity /= n_boids
 		
-		velocity += steer_away
-		velocity += (avg_velocity - velocity) / 2
-		velocity += (avg_position - position)
+		# Steer away from neighbors
+		velocity += steer_away * delta
+		# Match neighbors velocity
+		velocity = lerp(velocity, avg_velocity, 0.5 * delta)
+		# Steer towards neighbors position
+		velocity += (avg_position - position) * delta
+		
+	
+	# Steer towards goal
+	if current_behavior == Behavior.FOLLOW: 
+		velocity += (steer_towards - position) * delta
 	
 func move(delta):
 	global_position += velocity * delta
-	
+
+func torus_warp():
 	if global_position.x < 0:
 		global_position.x  = get_viewport_rect().size.x
 	if global_position.y < 0:
@@ -74,15 +98,22 @@ func move(delta):
 		global_position.x = 0
 	if global_position.y > get_viewport_rect().size.y:
 		global_position.y = 0
-		
-	
 
+func get_pool_area_name():
+	if team == Enums.Team.RED:
+		return "red_pool_area"
+	if team == Enums.Team.BLUE:
+		return "blue_pool_area"
+		
+	return "unknown"
 
 func _on_vision_area_entered(area : Area2D):
-	if area != self and area.is_in_group("boid"):
+	return
+	if area != self and area.is_in_group("boid") and visible_boids.size() < max_boids_vision:
 		visible_boids.append(area)
 
 
 func _on_vision_area_exited(area):
+	return
 	if area != self and area.is_in_group("boid"):
 		visible_boids.erase(area)
