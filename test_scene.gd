@@ -8,10 +8,8 @@ var max_boids = 150
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	for i in range(15):
-		var rand_x = randf_range(0,get_viewport_rect().size.x)
-		var rand_y = randf_range(0,get_viewport_rect().size.y)
-		add_boid(position)
+	for i in range(50):
+		add_boid(Vector2(50,50))
 
 
 func add_boid(position):
@@ -36,5 +34,5 @@ func _process(delta):
 		b.steer_towards = get_local_mouse_position()
 	
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
-		#add_boid(get_local_mouse_position())
+		add_boid(get_local_mouse_position())
 		pass

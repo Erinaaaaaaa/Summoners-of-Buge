@@ -24,13 +24,10 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6ts7m"]
 size = Vector2(134, 71)
 
-[node name="Boid" type="Area2D" node_paths=PackedStringArray("sprite", "raycastFrontL", "raycastFrontR", "raycastSideL", "raycastSideR", "vision_area") groups=["boid"]]
+[node name="Boid" type="Area2D" node_paths=PackedStringArray("sprite", "raycasts_node", "vision_area") groups=["boid"]]
 script = ExtResource("1_q72bb")
 sprite = NodePath("Sprite")
-raycastFrontL = NodePath("Raycasts/FrontL")
-raycastFrontR = NodePath("Raycasts/FrontR")
-raycastSideL = NodePath("Raycasts/SideL")
-raycastSideR = NodePath("Raycasts/SideR")
+raycasts_node = NodePath("Raycasts")
 vision_area = NodePath("Vision")
 speed = 400
 
@@ -53,15 +50,19 @@ shape = SubResource("RectangleShape2D_6ts7m")
 
 [node name="FrontL" type="RayCast2D" parent="Raycasts"]
 target_position = Vector2(65, -10)
+collide_with_areas = true
 
 [node name="FrontR" type="RayCast2D" parent="Raycasts"]
 target_position = Vector2(60, 10)
+collide_with_areas = true
 
 [node name="SideL" type="RayCast2D" parent="Raycasts"]
 target_position = Vector2(0, -40)
+collide_with_areas = true
 
 [node name="SideR" type="RayCast2D" parent="Raycasts"]
 target_position = Vector2(0, 40)
+collide_with_areas = true
 
 [connection signal="area_entered" from="Vision" to="." method="_on_vision_area_entered"]
 [connection signal="area_exited" from="Vision" to="." method="_on_vision_area_exited"]

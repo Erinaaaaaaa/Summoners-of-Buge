@@ -10,10 +10,7 @@ enum Behavior {
 @export var sprite : AnimatedSprite2D
 
 @export_category("Raycasts")
-@export var raycastFrontL : RayCast2D
-@export var raycastFrontR : RayCast2D
-@export var raycastSideL : RayCast2D
-@export var raycastSideR : RayCast2D
+@export var raycasts_node : Node2D
 
 @export_category("Zones")
 @export var vision_area : Area2D
@@ -35,7 +32,7 @@ func _ready():
 	#Initial velocity
 	velocity = Vector2(randf_range(-1,1), randf_range(-1,1)) * speed
 	
-	current_behavior = Behavior.FOLLOW
+	current_behavior = Behavior.NEUTRAL
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -51,7 +48,12 @@ func _process(delta):
 
 
 func check_sides(delta):
-	pass
+	for r in raycasts_node.get_children():
+		var ray : RayCast2D = r
+		if ray.is_colliding():
+			if ray.get_collider().is_in_group("solid"):
+				var magi = 100 / (r.get_collision_point() - global_position).length_squared() # magi = magnitude
+				velocity -= (r.target_position.rotated(rotation) * magi)
 
 func check_neighbors(delta):
 	if visible_boids:
