@@ -6,6 +6,8 @@ enum Behavior {
 	FOLLOW
 }
 
+signal deleted(Boid)
+
 @export_category("Visual")
 @export var sprite : AnimatedSprite2D
 
@@ -20,6 +22,7 @@ enum Behavior {
 @export var speed = 50
 @export var team = Enums.Team.RED
 @export var max_boids_vision = 5
+@export var damage_priority = 0
 
 # --------------------------------
 var visible_boids : Array[Area2D]
@@ -28,7 +31,10 @@ var current_behavior = Behavior.NEUTRAL
 var steer_towards = Vector2()
 
 var max_delta = 1.0/60
+var enabled = true
 
+
+var health = 1
 # ---------------------------------
 
 # Called when the node enters the scene tree for the first time.
@@ -37,11 +43,10 @@ func _ready():
 	velocity = Vector2(randf_range(-1,1), randf_range(-1,1)) * speed
 	
 	current_behavior = Behavior.NEUTRAL
+	print(position)
 
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float):
+	if !enabled: return
 	var eff_delta = min(max_delta, delta)
 	
 	check_neighbors(eff_delta * 10)
@@ -52,13 +57,11 @@ func _process(delta: float):
 	move(eff_delta)
 	
 	rotation = velocity.normalized().angle()
-	
-
 
 func check_sides(delta):
 	for r in raycasts_node.get_children():
 		var ray : RayCast2D = r
-		if ray.is_colliding():
+		if ray.get_collider() and ray.is_colliding():
 			if ray.get_collider().is_in_group("solid") or ray.get_collider().is_in_group(get_pool_area_name()):
 				var magi = 100 / (r.get_collision_point() - global_position).length_squared() # magi = magnitude
 				velocity -= (r.target_position.rotated(rotation) * magi)
@@ -70,17 +73,33 @@ func check_neighbors(delta):
 		var avg_position = Vector2.ZERO
 		var steer_away = Vector2.ZERO
 		
+		var prey_found = false
+		
 		for b in visible_boids:
-			avg_position += b.global_position
+			var boid : Boid = b
+			
+			var pos_offset1 = (b.global_position - global_position) + Vector2(0.000,0.001)
+			var pos_offset2 = (global_position - b.global_position) + Vector2(0.000,0.001)
+			var sta_dir = (pos_offset1) * (48 / ((pos_offset2)).length()) # Steer away direction
+			
+			steer_away -= sta_dir
+			
+			avg_position += b.position
 			avg_velocity += b.velocity
 			
-			steer_away -= (b.global_position - global_position) * (48 / (global_position - b.global_position).length())
+			# If we're on the same team or too weak to kill opponent
+			if team == b.team or priority <= b.priority:
+				pass
+			else: # We're predators. Go for the kill.
+				prey_found = true
+				
 		
 		avg_position /= n_boids
 		avg_velocity /= n_boids
 		
 		# Steer away from neighbors
-		velocity += steer_away * delta
+		if !prey_found:
+			velocity += steer_away * delta
 		# Match neighbors velocity
 		velocity = lerp(velocity, avg_velocity, 0.5 * delta)
 		# Steer towards neighbors position
@@ -113,11 +132,26 @@ func get_pool_area_name():
 		
 	return "unknown"
 
+func delete():
+	enabled = false
+	emit_signal("deleted", self)
+	queue_free()
+
 func _on_vision_area_entered(area : Area2D):
-	if area != self and area.is_in_group("boid") and visible_boids.size() < max_boids_vision:
+	if area != self and area.is_in_group("boid"):
 		visible_boids.append(area)
 
 
 func _on_vision_area_exited(area):
 	if area != self and area.is_in_group("boid"):
 		visible_boids.erase(area)
+
+
+func _on_area_entered(area):
+	if area != self and area.is_in_group("boid"):
+		# Check wether we're the one attacked or not.
+		# (The other boid comes at us at a 90 degree angle or from front)
+		var b : Boid = area
+		if team != b.team:
+			if damage_priority <= b.damage_priority:
+				delete()
