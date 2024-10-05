@@ -15,16 +15,24 @@ boid_scene = ExtResource("1_o2amn")
 [node name="DonutCollisionRectangle" type="CollisionPolygon2D" parent="ArenaWalls"]
 position = Vector2(631.5, 360.5)
 scale = Vector2(136.193, 38.7202)
-polygon = PackedVector2Array(-5.5, -10.5, 5.5, -10.5, 5.5, 10.5, -5.5, 10.5, -5.5, -10.5, -4.6368, 9.28456, 4.76163, 9.28456, 4.76163, -9.31039, -4.6368, -9.31039, -4.6368, 9.28456)
+polygon = PackedVector2Array(-5.5, -10.5, 5.5, -10.5, 5.5, 10.5, -5.5, 10.5, -5.5, -10.5, -4.5, 9.5, 4.5, 9.5, 4.5, -9.5, -4.5, -9.5, -4.5, 9.5)
 script = ExtResource("3_638ua")
 
-[node name="Wizard" parent="." instance=ExtResource("4_pqbjr")]
+[node name="Wizard" parent="." node_paths=PackedStringArray("boid_node") instance=ExtResource("4_pqbjr")]
 position = Vector2(300, 400)
+team = 0
+boid_node = NodePath("../Boids")
+boid_scene = ExtResource("1_o2amn")
 
-[node name="Wizard2" parent="." instance=ExtResource("4_pqbjr")]
+[node name="Wizard2" parent="." node_paths=PackedStringArray("boid_node") instance=ExtResource("4_pqbjr")]
 position = Vector2(1000, 400)
+team = 0
+boid_node = NodePath("../Boids")
+boid_scene = ExtResource("1_o2amn")
 
 [node name="MapBasic" type="Sprite2D" parent="."]
 z_index = -4096
 position = Vector2(640, 360)
 texture = ExtResource("5_h5wf8")
+
+[node name="Boids" type="Node2D" parent="."]
