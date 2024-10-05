@@ -8,8 +8,11 @@ var max_boids = 100000
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	for i in range(100):
-		pass #add_boid(Vector2(50,50))
+	return #somehow the 100 boids created here don't spawn? 
+	for i in range(50):
+		add_boid(Vector2(300,400))
+	for i in range(50):
+		add_boid(Vector2(1000,400))
 
 
 func add_boid(position):

@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://c6p3qanqbhxjk"]
+[gd_scene load_steps=6 format=3 uid="uid://c6p3qanqbhxjk"]
 
 [ext_resource type="Script" path="res://scenes/test_scene.gd" id="1_i61e3"]
-[ext_resource type="PackedScene" uid="uid://nnv4aue8jhay" path="res://entities/Boid.tscn" id="1_o2amn"]
+[ext_resource type="PackedScene" uid="uid://cq8v50q305aai" path="res://entities/Boid.tscn" id="1_o2amn"]
 [ext_resource type="Script" path="res://addons/donut_collision_polygon2D/donut_collision_rectangle2D.gd" id="3_638ua"]
 [ext_resource type="PackedScene" uid="uid://bapgpu1bqvnw3" path="res://entities/wizard.tscn" id="4_pqbjr"]
+[ext_resource type="Texture2D" uid="uid://crwe80e7wup" path="res://sprites/environment/map_basic.png" id="5_h5wf8"]
 
 [node name="TestScene" type="Node2D"]
 script = ExtResource("1_i61e3")
@@ -14,8 +15,16 @@ boid_scene = ExtResource("1_o2amn")
 [node name="DonutCollisionRectangle" type="CollisionPolygon2D" parent="ArenaWalls"]
 position = Vector2(631.5, 360.5)
 scale = Vector2(136.193, 38.7202)
-polygon = PackedVector2Array(-5.5, -10.5, 5.5, -10.5, 5.5, 10.5, -5.5, 10.5, -5.5, -10.5, -4.5, 9.5, 4.5, 9.5, 4.5, -9.5, -4.5, -9.5, -4.5, 9.5)
+polygon = PackedVector2Array(-5.5, -10.5, 5.5, -10.5, 5.5, 10.5, -5.5, 10.5, -5.5, -10.5, -4.6368, 9.28456, 4.76163, 9.28456, 4.76163, -9.31039, -4.6368, -9.31039, -4.6368, 9.28456)
 script = ExtResource("3_638ua")
 
 [node name="Wizard" parent="." instance=ExtResource("4_pqbjr")]
-position = Vector2(203, 390)
+position = Vector2(300, 400)
+
+[node name="Wizard2" parent="." instance=ExtResource("4_pqbjr")]
+position = Vector2(1000, 400)
+
+[node name="MapBasic" type="Sprite2D" parent="."]
+z_index = -4096
+position = Vector2(640, 360)
+texture = ExtResource("5_h5wf8")

@@ -36,6 +36,7 @@ position = Vector2(-1, 1)
 shape = SubResource("RectangleShape2D_bgsxf")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
+visible = false
 scale = Vector2(0.1, 0.1)
 sprite_frames = SubResource("SpriteFrames_i6dl7")
 frame = 1
@@ -49,11 +50,11 @@ shape = SubResource("RectangleShape2D_6ts7m")
 [node name="Raycasts" type="Node2D" parent="."]
 
 [node name="FrontL" type="RayCast2D" parent="Raycasts"]
-target_position = Vector2(65, -10)
+target_position = Vector2(130, -20)
 collide_with_areas = true
 
 [node name="FrontR" type="RayCast2D" parent="Raycasts"]
-target_position = Vector2(60, 10)
+target_position = Vector2(120, 20)
 collide_with_areas = true
 
 [node name="SideL" type="RayCast2D" parent="Raycasts"]
@@ -63,6 +64,13 @@ collide_with_areas = true
 [node name="SideR" type="RayCast2D" parent="Raycasts"]
 target_position = Vector2(0, 40)
 collide_with_areas = true
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = -9.0
+offset_top = -4.0
+offset_right = 9.0
+offset_bottom = 4.0
+color = Color(0, 0.532636, 0.867228, 1)
 
 [connection signal="area_entered" from="Vision" to="." method="_on_vision_area_entered"]
 [connection signal="area_exited" from="Vision" to="." method="_on_vision_area_exited"]

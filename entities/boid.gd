@@ -27,6 +27,8 @@ var visible_boids : Array[Area2D]
 var current_behavior = Behavior.NEUTRAL
 var steer_towards = Vector2()
 
+var max_delta = 1.0/60
+
 # ---------------------------------
 
 # Called when the node enters the scene tree for the first time.
@@ -36,14 +38,18 @@ func _ready():
 	
 	current_behavior = Behavior.NEUTRAL
 
+
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	check_neighbors(delta * 10)
-	check_sides(delta)
+func _process(delta: float):
+	var eff_delta = min(max_delta, delta)
+	
+	check_neighbors(eff_delta * 10)
+	check_sides(eff_delta)
 	
 	velocity = velocity.normalized() * speed
 	
-	move(delta)
+	move(eff_delta)
 	
 	rotation = velocity.normalized().angle()
 	
@@ -108,12 +114,10 @@ func get_pool_area_name():
 	return "unknown"
 
 func _on_vision_area_entered(area : Area2D):
-	return
 	if area != self and area.is_in_group("boid") and visible_boids.size() < max_boids_vision:
 		visible_boids.append(area)
 
 
 func _on_vision_area_exited(area):
-	return
 	if area != self and area.is_in_group("boid"):
 		visible_boids.erase(area)
