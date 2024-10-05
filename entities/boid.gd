@@ -17,7 +17,9 @@ enum Behavior {
 
 @export_category("General")
 @export var velocity = Vector2()
-@export var speed = 100
+@export var speed = 50
+@export var team = Enums.Team.RED
+@export var max_boids_vision = 5
 
 # --------------------------------
 var visible_boids : Array[Area2D]
@@ -51,7 +53,7 @@ func check_sides(delta):
 	for r in raycasts_node.get_children():
 		var ray : RayCast2D = r
 		if ray.is_colliding():
-			if ray.get_collider().is_in_group("solid"):
+			if ray.get_collider().is_in_group("solid") or ray.get_collider().is_in_group(get_pool_area_name()):
 				var magi = 100 / (r.get_collision_point() - global_position).length_squared() # magi = magnitude
 				velocity -= (r.target_position.rotated(rotation) * magi)
 
@@ -85,7 +87,8 @@ func check_neighbors(delta):
 	
 func move(delta):
 	global_position += velocity * delta
-	
+
+func torus_warp():
 	if global_position.x < 0:
 		global_position.x  = get_viewport_rect().size.x
 	if global_position.y < 0:
@@ -95,15 +98,22 @@ func move(delta):
 		global_position.x = 0
 	if global_position.y > get_viewport_rect().size.y:
 		global_position.y = 0
-		
-	
 
+func get_pool_area_name():
+	if team == Enums.Team.RED:
+		return "red_pool_area"
+	if team == Enums.Team.BLUE:
+		return "blue_pool_area"
+		
+	return "unknown"
 
 func _on_vision_area_entered(area : Area2D):
-	if area != self and area.is_in_group("boid"):
+	return
+	if area != self and area.is_in_group("boid") and visible_boids.size() < max_boids_vision:
 		visible_boids.append(area)
 
 
 func _on_vision_area_exited(area):
+	return
 	if area != self and area.is_in_group("boid"):
 		visible_boids.erase(area)

@@ -11,19 +11,29 @@ config_version=5
 [application]
 
 config/name="LD56"
-run/main_scene="res://test_scene.tscn"
+run/main_scene="res://scenes/test_scene.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 config/icon="res://icon.svg"
+
+[autoload]
+
+Enums="*res://utils/Enums.gd"
 
 [display]
 
 window/size/viewport_width=1280
 window/size/viewport_height=720
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/donut_collision_polygon2D/plugin.cfg")
+
 [global_group]
 
 boid=""
 solid=""
+red_pool_area=""
+blue_pool_area=""
 
 [rendering]
 
