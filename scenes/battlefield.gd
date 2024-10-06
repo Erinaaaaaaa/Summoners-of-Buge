@@ -1,32 +1,30 @@
 extends Node2D
-
-@export var boid_scene : PackedScene
+class_name Battlefield
 
 var boids = []
 var max_boids = 120
 
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass
+	for i in range(50):
+		add_boid("boid_neutral", Enums.Team.RED, Vector2(500,500))
 
 
-func add_boid(position):
-	var boid_i = boid_scene.instantiate()
+func add_boid(boid_type : String, team : Enums.Team, position : Vector2):
+	if  boids.size() >= max_boids:
+		print("Max entities reached. Can't create a new boid.")
+		return null
+	
+	var boid_i = ResourcesManager.create_instance("boid_neutral")
 	boid_i.position = position
+	boid_i.rotation_degrees = randf_range(0,360)
 	
 	boid_i.connect("deleted", boid_deleted)
 	
 	
 	print("Added " + str(boid_i))
-	add_child(boid_i)
+	$Boids.add_child(boid_i)
 	boids.append(boid_i)
-	
-	if  boids.size() > max_boids:
-		var to_remove = boids[0]
-		boids.remove_at(0)
-
-		to_remove.delete()
 	
 	return boid_i
 		
