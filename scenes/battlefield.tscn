@@ -33,6 +33,7 @@ position = Vector2(88, 72)
 battlefield = NodePath("..")
 
 [node name="Control" type="Control" parent="."]
+z_index = 30
 layout_mode = 3
 anchors_preset = 0
 offset_top = 592.0
@@ -46,3 +47,30 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Button" type="Button" parent="Control/Panel/HBoxContainer"]
+layout_mode = 2
+toggle_mode = true
+text = "Summon decoy"
+
+[node name="Button3" type="Button" parent="Control/Panel/HBoxContainer"]
+layout_mode = 2
+toggle_mode = true
+text = "Summon Spee"
+
+[node name="Button2" type="Button" parent="Control/Panel/HBoxContainer"]
+layout_mode = 2
+toggle_mode = true
+text = "Yeee eeeyeee!!!!! Yeee!!!!"
+
+[connection signal="button_down" from="Control/Panel/HBoxContainer/Button" to="." method="_on_spell_button_down" binds= ["decoy"]]
+[connection signal="button_down" from="Control/Panel/HBoxContainer/Button3" to="." method="_on_spell_button_down" binds= ["spee"]]

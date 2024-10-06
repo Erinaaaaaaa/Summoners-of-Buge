@@ -46,3 +46,7 @@ func _process(delta):
 	#if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 		#add_boid(get_local_mouse_position())
 		pass
+
+
+func _on_spell_button_down(spell_name):
+	player.cast(spell_name, player.position)
