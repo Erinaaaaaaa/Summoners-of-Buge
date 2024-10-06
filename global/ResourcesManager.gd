@@ -1,7 +1,7 @@
 extends Node
 
 var entities = {
-	"boid_neutral":"res://entities/boid.tscn"
+	"boid_neutral":"res://entities/Boid.tscn"
 }
 
 var particles = {

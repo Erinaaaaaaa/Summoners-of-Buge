@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://c6p3qanqbhxjk"]
+[gd_scene load_steps=5 format=3 uid="uid://bwetky2bp41wy"]
 
 [ext_resource type="Script" path="res://scenes/battlefield.gd" id="1_udail"]
 [ext_resource type="Script" path="res://addons/donut_collision_polygon2D/donut_collision_rectangle2D.gd" id="3_0l1md"]
