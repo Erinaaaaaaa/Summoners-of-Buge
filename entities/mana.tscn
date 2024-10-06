@@ -1,10 +1,13 @@
-[gd_scene load_steps=2 format=3 uid="uid://dxj5bp6mgwa32"]
+[gd_scene load_steps=3 format=3 uid="uid://dxj5bp6mgwa32"]
 
-[ext_resource type="Texture2D" uid="uid://dbvgq3378frpr" path="res://placeholder/orb-no-rotate.png" id="1_dbylt"]
+[ext_resource type="SpriteFrames" uid="uid://dey5fw1mw5xte" path="res://sprites/mana/spr_mana.tres" id="1_8k5v5"]
+[ext_resource type="Script" path="res://entities/mana.gd" id="1_fafit"]
 
 [node name="Mana" type="Node2D"]
 top_level = true
+script = ExtResource("1_fafit")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(0.8, 0.8)
-texture = ExtResource("1_dbylt")
+sprite_frames = ExtResource("1_8k5v5")
+frame_progress = 0.341517

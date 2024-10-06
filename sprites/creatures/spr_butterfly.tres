@@ -1,0 +1,18 @@
+[gd_resource type="SpriteFrames" load_steps=3 format=3 uid="uid://bddk53hplbqwm"]
+
+[ext_resource type="Texture2D" uid="uid://dwabwfp85ijvu" path="res://sprites/creatures/butterfly_1.png" id="1_cc4oc"]
+[ext_resource type="Texture2D" uid="uid://dlnpogafnogel" path="res://sprites/creatures/butterfly_2.png" id="2_equ45"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_cc4oc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_equ45")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]

@@ -34,10 +34,14 @@ signal deleted(Boid)
 @export var cohesion_strength = 20
 @export var separation_strength = 1000
 @export var alignment_strength = 10
+@export var wizard_kill_strength = 1000
 
 @export var predator_cohesion_strength = 50
 
 @export var prey_separation_strength = 1800
+
+@export var wizard_node: Node2D
+@export var goal_strength = 0
 
 # --------------------------------
 var visible_boids : Array[Area2D]
@@ -61,6 +65,7 @@ func _ready():
 	
 	$LifetimeTimer.wait_time = lifetime
 	$LifetimeTimer.start()
+	$Sprite.play()
 
 func _process(delta: float):
 	if !enabled: return
@@ -106,6 +111,8 @@ func get_steering() -> Vector2:
 	current_behavior = Behavior.NEUTRAL
 	for b in visible_boids:
 		var boid:Boid = b
+		if !b.enabled:
+			continue
 		var target_behavior = check_aggression(boid)
 		# Break out if you're a prey - you're running no matter what.
 		if target_behavior == Behavior.PREY:
@@ -119,6 +126,8 @@ func get_steering() -> Vector2:
 	# Process motion
 	for b in visible_boids:
 		var boid:Boid = b
+		if !b.enabled:
+			continue
 		var steering = Vector2.ZERO
 		
 		match current_behavior:
@@ -154,7 +163,8 @@ func steering_as_prey(boid:Boid) -> Vector2:
 func steering_as_neutral(boid:Boid) -> Vector2:
 	return (rule_cohesion(boid) * cohesion_strength
 		+ rule_separation(boid) * separation_strength
-		+ rule_alignment(boid) * alignment_strength)
+		+ rule_alignment(boid) * alignment_strength
+		+ rule_wizard() * wizard_kill_strength)
 
 ## Check if other is a prey.
 func is_prey(other: Boid) -> bool:
@@ -192,6 +202,13 @@ func rule_separation(other: Boid) -> Vector2:
 func rule_alignment(other: Boid) -> Vector2:
 	return other.velocity
 
+## Look for the goal.
+func rule_goal() -> Vector2:
+	return Vector2.ZERO
+
+func rule_wizard() -> Vector2:
+	return -(self.position - wizard_node.position) / max(1e-10, (self.position - wizard_node.position).length())
+
 func set_sprite(sprite_res):
 	$Sprite.set_sprite_frames(load(ResourcesManager.sprites[sprite_res]))
 
@@ -220,7 +237,12 @@ func _on_vision_area_exited(area):
 
 
 func _on_area_entered(area):
-	if area != self and area.is_in_group("boid"):
+	if area == self:
+		return
+	if area is Wizard and area.team != self.team:
+		area.hit()
+		delete()
+	if area.is_in_group("boid"):
 		# Check wether we're the one attacked or not.
 		# (The other boid comes at us at a 90 degree angle or from front)
 		var b : Boid = area

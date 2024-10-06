@@ -10,9 +10,9 @@ var particles = {
 }
 
 var sprites = {
-	"decoy": "res://placeholder/spr_decoy.tres",
+	"decoy": "res://sprites/creatures/spr_butterfly.tres",
 	"spidler": "res://placeholder/spidler.png",
-	"spee": "res://placeholder/spr_spee.tres"
+	"spee": "res://sprites/creatures/spr_spirit.tres"
 }
 
 var spell_data = {

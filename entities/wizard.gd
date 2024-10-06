@@ -20,6 +20,7 @@ var mana_display_instances = []
 var animation_time = 0
 
 var mana_distance = 100
+var invincible = false
 
 var casts_left = {
 	"decoy": 8*4,
@@ -138,7 +139,7 @@ func boid_killed(boid:Boid):
 
 func die():
 	wizard_on_death()
-	print("Wizard " + str(self) + "Fucking died!!!!!!")
+	print("Wizard " + str(self) + " Fucking died!!!!!!")
 
 func gain_mana(val):
 	mana += val
@@ -146,10 +147,20 @@ func gain_mana(val):
 	if mana > max_mana:
 		mana = max_mana
 	
-	if (mana + val) < 0 :
+	if (mana) < 0 :
 		mana = 0
 		die()
 
+
+func hit():
+	print("ouch ow my wizard bones")
+	if invincible:
+		print("--- but haha no hurt")
+		return
+	print("--- it hurts")
+	invincible = true
+	$AnimationPlayer.play("invincibility")
+	gain_mana(-2)
 ##
 
 
@@ -165,3 +176,8 @@ func wizard_on_death(): pass
 
 func _on_mana_recharge_timer_timeout():
 	gain_mana(1)
+
+
+func _on_animation_player_animation_finished(anim_name: StringName) -> void:
+	if anim_name == "invincibility":
+		invincible = false

@@ -1,0 +1,18 @@
+[gd_resource type="SpriteFrames" load_steps=3 format=3 uid="uid://dey5fw1mw5xte"]
+
+[ext_resource type="Texture2D" uid="uid://sahb5416d347" path="res://sprites/mana/mana_1.png" id="1_5toy5"]
+[ext_resource type="Texture2D" uid="uid://8o7sitgeyfah" path="res://sprites/mana/mana_2.png" id="2_m3t3b"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_5toy5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_m3t3b")
+}],
+"loop": true,
+"name": &"default",
+"speed": 4.0
+}]

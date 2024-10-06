@@ -1,10 +1,46 @@
-[gd_scene load_steps=4 format=3 uid="uid://bapgpu1bqvnw3"]
+[gd_scene load_steps=7 format=3 uid="uid://bapgpu1bqvnw3"]
 
 [ext_resource type="Script" path="res://entities/wizard.gd" id="1_plydg"]
 [ext_resource type="Texture2D" uid="uid://et6pd0y0x4h4" path="res://sprites/wizard/wiz_hat.png" id="2_4ornj"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_83l56"]
 radius = 59.0762
+
+[sub_resource type="Animation" id="Animation_6qyvb"]
+resource_name = "invincibility"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.5708, 14.1372]
+}
+
+[sub_resource type="Animation" id="Animation_g34qb"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.5708]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_guj1e"]
+_data = {
+"RESET": SubResource("Animation_g34qb"),
+"invincibility": SubResource("Animation_6qyvb")
+}
 
 [node name="Wizard" type="Area2D"]
 script = ExtResource("1_plydg")
@@ -20,4 +56,10 @@ texture = ExtResource("2_4ornj")
 [node name="ManaRechargeTimer" type="Timer" parent="."]
 wait_time = 2.0
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_guj1e")
+}
+
 [connection signal="timeout" from="ManaRechargeTimer" to="." method="_on_mana_recharge_timer_timeout"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

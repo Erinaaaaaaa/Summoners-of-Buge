@@ -28,6 +28,11 @@ func add_boid(boid_type : String, team : Enums.Team, position : Vector2):
 	boid_i.lifetime = boid_settings["lifetime"]
 	boid_i.set_sprite(boid_settings["sprite"])
 	boid_i.set_team(team)
+	match team:
+		Enums.Team.RED: #AI
+			boid_i.wizard_node = $WizardPlayer
+		Enums.Team.BLUE: #Player
+			boid_i.wizard_node = $WizardAI
 	
 	boid_i.connect("deleted", boid_deleted)
 	print("Added " + str(boid_i))

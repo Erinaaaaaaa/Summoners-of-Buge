@@ -27,7 +27,7 @@ z_index = -4096
 position = Vector2(640, 360)
 texture = ExtResource("5_4d0xd")
 
-[node name="Wizard" parent="." node_paths=PackedStringArray("battlefield") instance=ExtResource("4_c0q7i")]
+[node name="WizardAI" parent="." node_paths=PackedStringArray("battlefield") instance=ExtResource("4_c0q7i")]
 position = Vector2(1108, 473)
 battlefield = NodePath("..")
 
