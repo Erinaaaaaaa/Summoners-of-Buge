@@ -20,6 +20,8 @@ class_name Wizard
 var my_boids = []
 var mana = max_mana
 
+var player_wizard : Wizard
+
 var mana_display_instances = []
 var animation_time = 0
 
@@ -31,13 +33,25 @@ func _ready():
 		#pool_area.add_to_group("red_pool_area")
 	#if team == Enums.Team.BLUE:
 		#pool_area.add_to_group("blue_pool_area")
+		
 	if !isPlayer:
 		$Sprite.texture = hood_sprite
+		player_wizard = get_parent().get_node("Wizard") #HARDCODED PLAYER ASSIGNMENT
+	else:
+		player_wizard = self
+		pass
+	
 	init_mana()
 	$SpawnTimer.start()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	
+	if isPlayer:
+		control_player()
+	else:
+		ai_enemy()
+		
 	render_mana()
 	pass
 
@@ -46,6 +60,14 @@ func _input(event):
 	if event is InputEventMouseButton:
 		global_position= event.position
 		print("Mouse Click/Unclick at: ", event.position)
+
+func control_player():
+	look_at(get_viewport().get_mouse_position())
+	pass
+	
+func ai_enemy():
+	look_at(player_wizard.global_position)
+	pass
 
 func create_boid():
 	if my_boids.size() >= 50:
@@ -96,8 +118,6 @@ func render_mana() -> void:
 		else:
 			mana_display_instances[m].visible = false
 			mana_display_instances[m].position = global_position
-		
-	
 	return
 	
 func circle_around(pivot:Vector2, distance:float, offset:float) -> Vector2: 
