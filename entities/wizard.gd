@@ -16,7 +16,7 @@ class_name Wizard
 @export var isPlayer : bool
 
 
-#--- private vars ---
+#--- Non-inspector exposed vars ---
 var my_boids = []
 var mana = max_mana
 
@@ -24,6 +24,8 @@ var player_wizard : Wizard
 
 var mana_display_instances = []
 var animation_time = 0
+
+var mana_distance = 100
 
 var hood_sprite = preload("res://sprites/wizard/wiz_hood.png")
 
@@ -58,8 +60,15 @@ func _process(delta):
 func _input(event):
 	# Mouse in viewport coordinates.
 	if event is InputEventMouseButton:
-		global_position= event.position
-		print("Mouse Click/Unclick at: ", event.position)
+		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+			global_position = event.position
+			
+			for i in range(5):
+				var p = ParticlesManager.create_particle("cloud", self)
+				p.rotation_degrees = randf_range(0,360)
+				
+			
+			print("Mouse Click at: ", event.position)
 
 func control_player():
 	look_at(get_viewport().get_mouse_position())
@@ -113,7 +122,7 @@ func render_mana() -> void:
 	for m in range(max_mana) :
 		if m <= mana-1 :
 			mana_display_instances[m].visible = true
-			mana_display_instances[m].global_position = lerp(mana_display_instances[m].global_position,circle_around(global_position,200,(m+1/max_mana)+animation_time*0.01),0.1)
+			mana_display_instances[m].global_position = lerp(mana_display_instances[m].global_position,circle_around(global_position,mana_distance,(m+1/max_mana)+animation_time*0.01),0.1)
 			
 		else:
 			mana_display_instances[m].visible = false
