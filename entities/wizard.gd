@@ -4,16 +4,14 @@ class_name Wizard
 #--- Exported vars ---
 @export_category("Properties")
 @export var team = Enums.Team.RED
-@export var pool_area : Area2D
-@export var boid_node : Node2D
 
 @export_category("Prefabs")
-@export var boid_scene : PackedScene
-
 @export var max_mana = 6
 @export var mana_scene : PackedScene
 
 @export var isPlayer : bool
+
+@export var battlefield : Battlefield
 
 
 #--- Non-inspector exposed vars ---
@@ -56,19 +54,21 @@ func _process(delta):
 		
 	render_mana()
 	pass
-
+	
 func _input(event):
+	# Do nothing if it's not the player
+	if !isPlayer: return
+	
 	# Mouse in viewport coordinates.
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-			global_position = event.position
 			
 			for i in range(5):
-				var p = ParticlesManager.create_particle("cloud", self)
+				var p = ParticlesManager.create_particle("cloud", battlefield)
 				p.rotation_degrees = randf_range(0,360)
+				p.global_position = event.position
 				
-			
-			print("Mouse Click at: ", event.position)
+			battlefield.add_boid("boid_neutral", team, event.position)
 
 func control_player():
 	look_at(get_viewport().get_mouse_position())
@@ -78,36 +78,8 @@ func ai_enemy():
 	look_at(player_wizard.global_position)
 	pass
 
-func create_boid():
-	if my_boids.size() >= 50:
-		print("Too many boids. skipping creation")
-		return
-	
-	print("Creating new boid")
-	var angle = randf_range(0, 2*PI)
-	var distance = randf_range(30, 180)
-	
-	var instance: Boid = boid_scene.instantiate()
-	var local_pos = Vector2.RIGHT.rotated(angle) * distance
-	instance.position = local_pos
-	
-	#temp
-	if team == Enums.Team.BLUE:
-		instance.team = Enums.Team.RED
-	elif team == Enums.Team.RED:
-		instance.team = Enums.Team.BLUE
-	
-	#temp
-	if instance.team == Enums.Team.BLUE:
-		instance.modulate = Color(0,0,255)
-		instance.damage_priority = 0
-	elif instance.team == Enums.Team.RED:
-		instance.modulate = Color(255,0,0)
-		instance.damage_priority = 1
-	
-	my_boids.append(instance)
-	add_child(instance)
-	instance.reparent(boid_node)
+func cast_spawn_boid():
+	pass
 
 func init_mana() -> void:
 	while mana_display_instances.size() < max_mana:

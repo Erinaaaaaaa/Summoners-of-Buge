@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="LD56"
-run/main_scene="res://scenes/test_scene.tscn"
+run/main_scene="res://scenes/battlefield.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 run/max_fps=60
 config/icon="res://icon.svg"
