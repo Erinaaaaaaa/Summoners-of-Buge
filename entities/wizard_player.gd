@@ -11,6 +11,7 @@ func wizard_process(delta):
 	look_at(get_viewport().get_mouse_position())
 
 func _input(event):
+	return
 	# Mouse in viewport coordinates.
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
