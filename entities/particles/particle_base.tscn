@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://btn8qr0p05g3y"]
+
+[ext_resource type="Script" path="res://entities/particles/particle_base.gd" id="1_fex7e"]
+
+[node name="ParticleBase" type="Node2D"]
+script = ExtResource("1_fex7e")

@@ -6,4 +6,5 @@
 top_level = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.8, 0.8)
 texture = ExtResource("1_dbylt")

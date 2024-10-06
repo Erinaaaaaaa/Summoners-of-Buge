@@ -18,11 +18,15 @@ signal deleted(Boid)
 @export var vision_area : Area2D
 
 @export_category("General")
-@export var velocity = Vector2()
-@export var speed = 50
 @export var team = Enums.Team.RED
 @export var max_boids_vision = 5
 @export var damage_priority = 0
+
+@export_category("Rules")
+@export var max_speed = 500
+@export var cohesion_strength = 20
+@export var separation_strength = 500
+@export var alignment_strength = 10
 
 # --------------------------------
 var visible_boids : Array[Area2D]
@@ -30,91 +34,39 @@ var visible_boids : Array[Area2D]
 var current_behavior = Behavior.NEUTRAL
 var steer_towards = Vector2()
 
-var max_delta = 1.0/60
 var enabled = true
 
+var velocity = Vector2.ZERO
 
 var health = 1
 # ---------------------------------
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	#Initial velocity
-	velocity = Vector2(randf_range(-1,1), randf_range(-1,1)) * speed
+	var angle = randf_range(0, 2*PI)
+	velocity = Vector2.RIGHT.rotated(angle) * 50 #base speed
 	
 	current_behavior = Behavior.NEUTRAL
 	print(position)
 
 func _process(delta: float):
 	if !enabled: return
-	var eff_delta = min(max_delta, delta)
 	
-	check_neighbors(eff_delta * 10)
-	check_sides(eff_delta)
+	var steering = get_steering()
 	
-	velocity = velocity.normalized() * speed
+	# Update motion settings
+	velocity = lerp(velocity, velocity + steering, 0.5 * delta)
+	# Keep speed in check
+	if velocity.length_squared() > max_speed**2:
+		velocity = velocity.normalized() * max_speed
 	
-	move(eff_delta)
-	
-	rotation = velocity.normalized().angle()
-
-func check_sides(delta):
-	for r in raycasts_node.get_children():
-		var ray : RayCast2D = r
-		if ray.get_collider() and ray.is_colliding():
-			if ray.get_collider().is_in_group("solid") or ray.get_collider().is_in_group(get_pool_area_name()):
-				var magi = 100 / (r.get_collision_point() - global_position).length_squared() # magi = magnitude
-				velocity -= (r.target_position.rotated(rotation) * magi)
-
-func check_neighbors(delta):
-	if visible_boids:
-		var n_boids = visible_boids.size()
-		var avg_velocity = Vector2.ZERO
-		var avg_position = Vector2.ZERO
-		var steer_away = Vector2.ZERO
-		var prey_steer_away = Vector2.ZERO
-		
-		var prey_found = false
-		
-		for b in visible_boids:
-			var boid : Boid = b
-			
-			# Steer away direction: "force" that pushes boids away from each other
-			# The closer the boids, the further they are pushed apart
-			var pos_offset : Vector2 = (b.global_position - global_position).max(Vector2(0.000,0.001)) 
-			var sta_dir = (pos_offset) * (48 / ((-pos_offset)).length())
-			
-			avg_position += b.position
-			avg_velocity += b.velocity
-			
-			# If we're on the same team or too weak to kill opponent
-			if team == b.team or priority <= b.priority:
-				steer_away -= sta_dir
-			else: # We're predators. Go for the kill.
-				prey_found = true
-				prey_steer_away += sta_dir
-				
-		
-		avg_position /= n_boids
-		avg_velocity /= n_boids
-		
-		# Steer away from neighbors
-		if !prey_found:
-			velocity += steer_away * delta
-		else:
-			velocity += prey_steer_away * delta * 5
-		# Match neighbors velocity
-		velocity = lerp(velocity, avg_velocity, 0.5 * delta)
-		# Steer towards neighbors position
-		velocity += (avg_position - position) * delta
-		
-	
-	# Steer towards goal
-	if current_behavior == Behavior.FOLLOW: 
-		velocity += (steer_towards - position) * delta
-	
-func move(delta):
+	# Perform steering step
 	global_position += velocity * delta
+	
+	# Keep inbounds.
+	torus_warp()
+	
+	rotation = velocity.angle()
 
 func torus_warp():
 	if global_position.x < 0:
@@ -127,13 +79,38 @@ func torus_warp():
 	if global_position.y > get_viewport_rect().size.y:
 		global_position.y = 0
 
-func get_pool_area_name():
-	if team == Enums.Team.RED:
-		return "red_pool_area"
-	if team == Enums.Team.BLUE:
-		return "blue_pool_area"
+# Returns angle/speed delta.
+func get_steering() -> Vector2:
+	if !visible_boids:
+		return Vector2.ZERO	
+	
+	var total_steering = Vector2.ZERO
+	var processed_count = 0
+	
+	for b in visible_boids:
+		var boid:Boid = b
+		var steering = Vector2.ZERO
 		
-	return "unknown"
+		steering += rule_cohesion(boid) * cohesion_strength
+		steering += rule_separation(boid) * separation_strength
+		steering += rule_alignment(boid) * alignment_strength
+		
+		total_steering += steering
+		processed_count += 1
+	
+	return total_steering / processed_count
+
+# Aim to get close to the other boid.
+func rule_cohesion(other: Boid) -> Vector2:
+	return other.position - self.position
+
+# Increase the separation strength the closer you are to the other boid.
+func rule_separation(other: Boid) -> Vector2:
+	return (self.position - other.position) / max(1e-10, (self.position - other.position).length())
+
+# Aim to match the velocity of the other boid.
+func rule_alignment(other: Boid) -> Vector2:
+	return other.velocity
 
 func delete():
 	enabled = false

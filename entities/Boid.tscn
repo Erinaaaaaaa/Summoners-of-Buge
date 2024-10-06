@@ -17,28 +17,33 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_6ts7m"]
-size = Vector2(136, 78.75)
+[sub_resource type="CircleShape2D" id="CircleShape2D_yt07d"]
+radius = 120.0
 
 [node name="Boid" type="Area2D" node_paths=PackedStringArray("sprite", "raycasts_node", "vision_area") groups=["boid"]]
 script = ExtResource("1_q72bb")
 sprite = NodePath("Sprite")
 raycasts_node = NodePath("Raycasts")
 vision_area = NodePath("Vision")
-speed = 200
 
 [node name="CollisionShape" type="CollisionShape2D" parent="."]
 position = Vector2(0, -1.5)
 shape = SubResource("RectangleShape2D_bgsxf")
 
+[node name="Polygon2D" type="Polygon2D" parent="."]
+position = Vector2(15, 0)
+scale = Vector2(0.695725, 0.826858)
+polygon = PackedVector2Array(-22, -8, -22, 8, 26, 0)
+
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 rotation = 1.5708
+scale = Vector2(0.639745, 0.639745)
 sprite_frames = SubResource("SpriteFrames_i6dl7")
 
 [node name="Vision" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Vision"]
-shape = SubResource("RectangleShape2D_6ts7m")
+shape = SubResource("CircleShape2D_yt07d")
 
 [node name="Raycasts" type="Node2D" parent="."]
 
