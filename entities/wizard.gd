@@ -23,7 +23,8 @@ var animation_time = 0
 var mana_distance = 100
 
 var casts_left = {
-	"spawn_weak_boids":20
+	"decoy": 8*4,
+	"spee": 3*5
 }
 
 # Called when the node enters the scene tree for the first time.
@@ -97,7 +98,7 @@ func cast(spell_name : String, pos : Vector2):
 	var i = min(casts_left[spell_name], cast_count)
 	while i > 0:
 		var summon_pos = circle_around(summon_pivot,30*pow(i,0.5),((i+1)*PI*2)/6)
-		cast_spawn_boid("boid_neutral",summon_pos,summon_pivot.angle_to_point(pos))
+		var boid = cast_spawn_boid(spell_name,summon_pos,summon_pivot.angle_to_point(pos))
 		i -= 1
 
 	# Update the casts left
@@ -106,8 +107,7 @@ func cast(spell_name : String, pos : Vector2):
 	
 
 func cast_spawn_boid(boid_name, pos, rot):
-	battlefield.add_boid(boid_name, team, pos)
-	pass
+	return battlefield.add_boid(boid_name, team, pos)
 
 func die():
 	wizard_on_death()

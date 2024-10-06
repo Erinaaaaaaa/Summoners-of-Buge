@@ -17,13 +17,18 @@ func add_boid(boid_type : String, team : Enums.Team, position : Vector2):
 		print("Max entities reached. Can't create a new boid.")
 		return null
 	
-	var boid_i = ResourcesManager.create_instance("boid_neutral")
+	var boid_i : Boid = ResourcesManager.create_instance("boid_neutral") as Boid
 	boid_i.position = position
 	boid_i.rotation_degrees = randf_range(0,360)
 	
+	# Set settings
+	var boid_settings = ResourcesManager.spell_data[boid_type]["options"]
+	boid_i.max_speed = boid_settings["max_speed"]
+	boid_i.damage_priority = boid_settings["damage_priority"]
+	boid_i.lifetime = boid_settings["lifetime"]
+	boid_i.set_sprite(boid_settings["sprite"])
+	
 	boid_i.connect("deleted", boid_deleted)
-	
-	
 	print("Added " + str(boid_i))
 	$Boids.add_child(boid_i)
 	boids.append(boid_i)

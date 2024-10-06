@@ -7,6 +7,7 @@
 size = Vector2(32, 27)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_i6dl7"]
+resource_local_to_scene = true
 animations = [{
 "frames": [{
 "duration": 1.0,

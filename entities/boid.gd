@@ -23,6 +23,8 @@ signal deleted(Boid)
 @export var max_boids_vision = 5
 @export var damage_priority = 0
 @export var lifetime = 20
+@export var health = 1
+@export var damage = 1
 
 @export_category("Rules")
 @export var max_speed = 300
@@ -47,7 +49,7 @@ var enabled = true
 
 var velocity = Vector2.ZERO
 
-var health = 1
+
 # ---------------------------------
 
 # Called when the node enters the scene tree for the first time.
@@ -187,6 +189,9 @@ func rule_separation(other: Boid) -> Vector2:
 ## Aim to match the velocity of the other boid.
 func rule_alignment(other: Boid) -> Vector2:
 	return other.velocity
+
+func set_sprite(sprite_res):
+	$Sprite.set_sprite_frames(load(ResourcesManager.sprites[sprite_res]))
 
 ## Properly remove this boid from the universe.
 func delete():
