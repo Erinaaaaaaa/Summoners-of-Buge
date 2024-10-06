@@ -59,6 +59,7 @@ func _input(event):
 	# Mouse in viewport coordinates.
 	if event is InputEventMouseButton:
 		global_position= event.position
+		mana -=1
 		print("Mouse Click/Unclick at: ", event.position)
 
 func control_player():
@@ -113,7 +114,7 @@ func render_mana() -> void:
 	for m in range(max_mana) :
 		if m <= mana-1 :
 			mana_display_instances[m].visible = true
-			mana_display_instances[m].global_position = lerp(mana_display_instances[m].global_position,circle_around(global_position,200,(m+1/max_mana)+animation_time*0.01),0.1)
+			mana_display_instances[m].global_position = lerp(mana_display_instances[m].global_position,circle_around(global_position,200,((m*PI*2)/mana)+animation_time*0.01),0.1)
 			
 		else:
 			mana_display_instances[m].visible = false
