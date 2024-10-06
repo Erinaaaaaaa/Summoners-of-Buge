@@ -62,13 +62,11 @@ func _input(event):
 	# Mouse in viewport coordinates.
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+			cast("spell",event.position)
 			
-			for i in range(5):
-				var p = ParticlesManager.create_particle("cloud", battlefield)
-				p.rotation_degrees = randf_range(0,360)
-				p.global_position = event.position
-				
-			battlefield.add_boid("boid_neutral", team, event.position)
+			
+
+
 
 func control_player():
 	look_at(get_viewport().get_mouse_position())
@@ -78,7 +76,48 @@ func ai_enemy():
 	look_at(player_wizard.global_position)
 	pass
 
-func cast_spawn_boid():
+func cast(spell, pos : Vector2):
+	var count : int = 10 #REPLACE WITH BOIDS PER CAST REFERENCE
+	if count <= 0: return
+	
+	var cost = 1
+	var summon_pivot = ((pos - global_position).normalized() * 60) + global_position #"arm" length 
+	if count == 1: cast_spawn_boid(summon_pivot, summon_pivot.angle_to_point(pos),spell.type)
+	if count > 1:
+		var level = 1
+		for i in count:
+			var summon_pos = circle_around(summon_pivot,15*level,((i+1)*PI*2)/float(count%4))
+			cast_spawn_boid(summon_pos,summon_pivot.angle_to_point(pos),"boid type")
+			pass
+		pass
+		gain_mana(-1)
+	pass
+
+func cast_spawn_boid(pos, rot, type):
+	for i in range(5):
+		var p = ParticlesManager.create_particle("cloud", battlefield)
+		p.rotation_degrees = randf_range(0,360)
+		p.global_position = pos
+		
+	battlefield.add_boid("boid_neutral", team, pos)
+	pass
+
+func die():
+	if isPlayer:
+		#game_over()
+		pass
+	else:
+		queue_free()
+		#win()
+
+func gain_mana(val):
+	if (mana + val) > max_mana:
+		mana = max_mana
+	if (mana + val) < 0 :
+		mana = 0
+		die()
+	else:
+		mana += val
 	pass
 
 func init_mana() -> void:
@@ -94,7 +133,7 @@ func render_mana() -> void:
 	for m in range(max_mana) :
 		if m <= mana-1 :
 			mana_display_instances[m].visible = true
-			mana_display_instances[m].global_position = lerp(mana_display_instances[m].global_position,circle_around(global_position,mana_distance,(m+1/max_mana)+animation_time*0.01),0.1)
+			mana_display_instances[m].global_position = lerp(mana_display_instances[m].global_position,circle_around(global_position,mana_distance,((m+1)*PI*2/mana)+animation_time*0.01),0.1)
 			
 		else:
 			mana_display_instances[m].visible = false
