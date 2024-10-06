@@ -35,9 +35,9 @@ func boid_deleted(boid : Boid):
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	for b in boids:
-		b.steer_towards = get_local_mouse_position()
-	
-	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
-		add_boid(get_local_mouse_position())
+	#for b in boids:
+		#b.steer_towards = get_local_mouse_position()
+	#
+	#if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+		#add_boid(get_local_mouse_position())
 		pass

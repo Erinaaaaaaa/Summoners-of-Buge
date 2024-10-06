@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://dxj5bp6mgwa32"]
+
+[ext_resource type="Texture2D" uid="uid://dbvgq3378frpr" path="res://placeholder/orb-no-rotate.png" id="1_dbylt"]
+
+[node name="Mana" type="Node2D"]
+top_level = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_dbylt")

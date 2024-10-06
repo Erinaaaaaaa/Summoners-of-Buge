@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://bapgpu1bqvnw3"]
+[gd_scene load_steps=7 format=3 uid="uid://bapgpu1bqvnw3"]
 
 [ext_resource type="Script" path="res://entities/wizard.gd" id="1_plydg"]
 [ext_resource type="Texture2D" uid="uid://et6pd0y0x4h4" path="res://sprites/wizard/wiz_hat.png" id="2_4ornj"]
 [ext_resource type="Script" path="res://addons/donut_collision_polygon2D/donut_collision_polygon2D.gd" id="2_finai"]
+[ext_resource type="PackedScene" uid="uid://dxj5bp6mgwa32" path="res://entities/mana.tscn" id="2_tvx63"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_tw3tb"]
 animations = [{
@@ -21,6 +22,7 @@ radius = 82.2192
 [node name="Wizard" type="Area2D" node_paths=PackedStringArray("pool_area")]
 script = ExtResource("1_plydg")
 pool_area = NodePath("PoolArea")
+mana_scene = ExtResource("2_tvx63")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 scale = Vector2(0.5, 0.5)

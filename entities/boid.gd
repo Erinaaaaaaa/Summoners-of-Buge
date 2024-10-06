@@ -81,7 +81,7 @@ func check_neighbors(delta):
 			
 			# Steer away direction: "force" that pushes boids away from each other
 			# The closer the boids, the further they are pushed apart
-			var pos_offset = max((b.global_position - global_position), Vector2(0.000,0.001))
+			var pos_offset : Vector2 = (b.global_position - global_position).max(Vector2(0.000,0.001)) 
 			var sta_dir = (pos_offset) * (48 / ((-pos_offset)).length())
 			
 			avg_position += b.position
