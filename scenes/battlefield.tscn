@@ -30,6 +30,7 @@ battlefield = NodePath("..")
 
 [node name="WizardPlayer" parent="." node_paths=PackedStringArray("battlefield") instance=ExtResource("5_m322d")]
 position = Vector2(88, 72)
+team = 1
 battlefield = NodePath("..")
 
 [node name="Control" type="Control" parent="."]

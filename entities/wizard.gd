@@ -31,7 +31,7 @@ func _ready():
 	wizard_ready()
 	
 	init_mana()
-	$SpawnTimer.start()
+	$ManaRechargeTimer.start()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -62,8 +62,6 @@ func circle_around(pivot:Vector2, distance:float, offset:float) -> Vector2:
 	return pivot + Vector2(cos(offset),sin(offset))*distance
 
 ## Functions used by player/AI
-
-
 func cast(spell_name : String, pos : Vector2):
 	
 	# Casts a COUNT number of times the spell specified by the name.
@@ -77,6 +75,9 @@ func cast(spell_name : String, pos : Vector2):
 	# The spell data exists, but not recognized as a spell the wizard can cast.
 	if !casts_left.has(spell_name):
 		print("ERROR: Wizard doesn't seem to be able to cast the spell '"+ spell_name + "'.")
+		return
+	
+	if !can_cast_spell(spell_name): return
 	
 		
 	var spell_data = ResourcesManager.spell_data[spell_name]
@@ -107,6 +108,28 @@ func cast(spell_name : String, pos : Vector2):
 	if casts_left[spell_name] < 0: casts_left[spell_name] = 0
 	
 
+func can_cast_spell(spell_name : String):
+	if !ResourcesManager.spell_data.has(spell_name):
+		print("ERROR: Spell of name '" + spell_name + " not found.")
+		return false
+	
+	# The spell data exists, but not recognized as a spell the wizard can cast.
+	if !casts_left.has(spell_name):
+		return false
+		
+	var spell_data = ResourcesManager.spell_data[spell_name]
+	
+	# You can't case the spell if you don't have enough mana.
+	if mana < spell_data["cost"]: return false
+	
+	# You can't cast the spell if you don't have any cast left on that spell.
+	if casts_left[spell_name] <= 0: return false
+	
+	# You can't cast the spell if the spell isn't charged yet
+	# NOT IMPLEMENTED YET
+	
+	return true
+
 func cast_spawn_boid(boid_name, pos, rot):
 	return battlefield.add_boid(boid_name, team, pos)
 
@@ -118,14 +141,14 @@ func die():
 	print("Wizard " + str(self) + "Fucking died!!!!!!")
 
 func gain_mana(val):
-	if (mana + val) > max_mana:
+	mana += val
+	
+	if mana > max_mana:
 		mana = max_mana
+	
 	if (mana + val) < 0 :
 		mana = 0
 		die()
-	else:
-		mana += val
-	pass
 
 ##
 
@@ -138,3 +161,7 @@ func wizard_process(delta): pass
 func wizard_on_death(): pass
 
 ##
+
+
+func _on_mana_recharge_timer_timeout():
+	gain_mana(1)

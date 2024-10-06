@@ -17,7 +17,7 @@ rotation = 1.5708
 scale = Vector2(0.35, 0.35)
 texture = ExtResource("2_4ornj")
 
-[node name="SpawnTimer" type="Timer" parent="."]
-wait_time = 0.1
+[node name="ManaRechargeTimer" type="Timer" parent="."]
+wait_time = 2.0
 
-[connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
+[connection signal="timeout" from="ManaRechargeTimer" to="." method="_on_mana_recharge_timer_timeout"]
