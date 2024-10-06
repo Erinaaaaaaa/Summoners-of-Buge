@@ -8,9 +8,7 @@ var player : Wizard
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	for i in range(100):
-		pass #add_boid("boid_neutral", Enums.Team.RED, Vector2(randf_range(0,1000),randf_range(0,500)))
-
+	GameManager.battlefield = self
 
 func add_boid(boid_type : String, team : Enums.Team, position : Vector2):
 	if  boids.size() >= max_boids:
@@ -51,13 +49,11 @@ func boid_deleted(boid : Boid):
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	#for b in boids:
-		#b.steer_towards = get_local_mouse_position()
-	#
-	#if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
-		#add_boid(get_local_mouse_position())
-		pass
-
+	pass
 
 func _on_spell_button_down(spell_name):
 	player.cast(spell_name, player.position)
+	
+func anim_camera(animation):
+	print("battlefield anim camera")
+	$Camera2D/CameraAnimation.play(animation)

@@ -18,6 +18,7 @@ var player_wizard : Wizard
 
 var mana_display_instances = []
 var animation_time = 0
+var type: Enums.Player
 
 var mana_distance = 100
 var invincible = false
@@ -140,7 +141,11 @@ func boid_killed(boid:Boid):
 
 func die():
 	wizard_on_death()
+	$DeathSound.play()
 	print("Wizard " + str(self) + " Fucking died!!!!!!")
+	$AnimationPlayer.play("death")
+	print($AnimationPlayer.current_animation)
+	GameManager.gameover(type)
 
 func gain_mana(val):
 	mana += val
@@ -149,19 +154,17 @@ func gain_mana(val):
 		mana = max_mana
 	
 	if (mana) < 0 :
-		mana = 0
+		mana = -1
 		die()
 
 
 func hit():
-	print("ouch ow my wizard bones")
 	if invincible:
-		print("--- but haha no hurt")
 		return
-	print("--- it hurts")
 	invincible = true
-	$AnimationPlayer.play("invincibility")
 	gain_mana(-2)
+	if (mana >= 0):
+		$AnimationPlayer.play("invincibility")
 ##
 
 

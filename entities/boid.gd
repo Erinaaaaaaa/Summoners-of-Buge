@@ -91,18 +91,20 @@ func _process(delta: float):
 	
 	rotation = velocity.angle()
 
+var bottom_right = Vector2(1280, 720)
+
 func check_bounds():
 	if global_position.x < 0:
 		velocity.x *= -1
 	if global_position.y < 0:
 		velocity.y *= -1
 	
-	if global_position.x >  get_viewport_rect().size.x:
+	if global_position.x >  bottom_right.x:
 		velocity.x *= -1
-	if global_position.y > get_viewport_rect().size.y:
+	if global_position.y > bottom_right.y:
 		velocity.y *= -1
 	
-	global_position = global_position.clamp(Vector2(0, 0), get_viewport_rect().size)
+	global_position = global_position.clamp(Vector2(0, 0), bottom_right)
 
 # Returns angle/speed delta.
 func get_steering() -> Vector2:
@@ -173,7 +175,7 @@ func steering_as_neutral(boid:Boid) -> Vector2:
 
 ## Check if other is a prey.
 func is_prey(other: Boid) -> bool:
-	return other.team != self.team and other.damage_priority < self.damage_priority
+	return other.team != self.team and other.damage_priority <= self.damage_priority
 
 ## Check if other is a predator.
 func is_predator(other: Boid) -> bool:

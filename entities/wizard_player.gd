@@ -2,6 +2,7 @@ extends Wizard
 
 
 func wizard_ready():
+	type = Enums.Player.PLAYER
 	pass
 
 func wizard_process(delta):

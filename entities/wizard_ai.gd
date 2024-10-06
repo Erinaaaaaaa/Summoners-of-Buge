@@ -5,6 +5,7 @@ var timer = 0
 var next_spell = "decoy"
 
 func wizard_ready():
+	type = Enums.Player.AI
 	choose_next_spell()
 
 func wizard_process(delta):
