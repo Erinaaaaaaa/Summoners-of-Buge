@@ -6,7 +6,8 @@ var entities = {
 }
 
 var particles = {
-	"cloud":"res://entities/particles/particle_cloud.tscn"
+	"cloud":"res://entities/particles/particle_cloud.tscn",
+	"die":"res://entities/particles/particle_die.tscn"
 }
 
 var sprites = {

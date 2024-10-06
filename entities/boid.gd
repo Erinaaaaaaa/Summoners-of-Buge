@@ -43,7 +43,11 @@ signal deleted(Boid)
 @export var wizard_node: Node2D
 @export var goal_strength = 0
 
+
+
 # --------------------------------
+var battlefield : Battlefield
+
 var visible_boids : Array[Area2D]
 var type = ""
 
@@ -59,6 +63,7 @@ var velocity = Vector2.ZERO
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	battlefield = get_tree().current_scene
 	var angle = randf_range(0, 2*PI)
 	velocity = Vector2.RIGHT.rotated(angle) * 50 #base speed
 	current_behavior = Behavior.NEUTRAL
@@ -223,6 +228,9 @@ func set_team(team):
 ## Properly remove this boid from the universe.
 func delete():
 	enabled = false
+	var p = ParticlesManager.create_particle("die", battlefield)
+	p.rotation_degrees = global_rotation
+	p.global_position = global_position
 	emit_signal("deleted", self)
 	queue_free()
 

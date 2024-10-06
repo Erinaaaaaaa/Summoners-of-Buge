@@ -132,6 +132,7 @@ func can_cast_spell(spell_name : String):
 	return true
 
 func cast_spawn_boid(boid_name, pos, rot):
+	
 	return battlefield.add_boid(boid_name, team, pos)
 
 func boid_killed(boid:Boid):

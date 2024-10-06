@@ -39,6 +39,11 @@ func add_boid(boid_type : String, team : Enums.Team, position : Vector2):
 	$Boids.add_child(boid_i)
 	boids.append(boid_i)
 	
+	for i in range(2):
+		var p = ParticlesManager.create_particle("cloud", self)
+		p.rotation_degrees = randf_range(0,360)
+		p.global_position = position
+	
 	return boid_i
 		
 func boid_deleted(boid : Boid):
