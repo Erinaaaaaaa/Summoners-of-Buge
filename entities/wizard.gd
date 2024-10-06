@@ -88,16 +88,15 @@ func cast(spell_name : String, pos : Vector2):
 		return
 	
 	var spell_cost = spell_data["cost"]
-	var summon_pivot = ((pos - global_position).normalized() * 60) + global_position #"arm" length
+	var summon_pivot = ((pos - global_position).normalized() * 120) + global_position #"arm" length
 	
 	# Drain the mana first
 	gain_mana(-spell_cost)
 	
 	# Cast the number of spells needed
 	var i = min(casts_left[spell_name], cast_count)
-	var level = 1
 	while i > 0:
-		var summon_pos = circle_around(summon_pivot,15*level,((i+1)*PI*2))
+		var summon_pos = circle_around(summon_pivot,30*pow(i,0.5),((i+1)*PI*2)/6)
 		cast_spawn_boid("boid_neutral",summon_pos,summon_pivot.angle_to_point(pos))
 		i -= 1
 
