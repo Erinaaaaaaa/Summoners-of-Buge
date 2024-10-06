@@ -12,7 +12,6 @@ class_name Wizard
 
 
 #--- Non-inspector exposed vars ---
-var my_boids = []
 var mana = max_mana
 
 var player_wizard : Wizard
@@ -99,6 +98,8 @@ func cast(spell_name : String, pos : Vector2):
 	while i > 0:
 		var summon_pos = circle_around(summon_pivot,30*pow(i,0.5),((i+1)*PI*2)/6)
 		var boid = cast_spawn_boid(spell_name,summon_pos,summon_pivot.angle_to_point(pos))
+		boid.type = spell_name
+		boid.connect("deleted", boid_killed)
 		i -= 1
 
 	# Update the casts left
@@ -108,6 +109,9 @@ func cast(spell_name : String, pos : Vector2):
 
 func cast_spawn_boid(boid_name, pos, rot):
 	return battlefield.add_boid(boid_name, team, pos)
+
+func boid_killed(boid:Boid):
+	casts_left[boid.type] += 1
 
 func die():
 	wizard_on_death()

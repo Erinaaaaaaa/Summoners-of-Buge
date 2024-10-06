@@ -57,6 +57,13 @@ func _ready():
 	var angle = randf_range(0, 2*PI)
 	velocity = Vector2.RIGHT.rotated(angle) * 50 #base speed
 	current_behavior = Behavior.NEUTRAL
+	
+	match team:
+		Enums.Team.RED:
+			modulate = Color(1, 0.3, 0.3)
+		Enums.Team.BLUE:
+			modulate = Color(0.3, 0.3, 1)
+	
 	$LifetimeTimer.wait_time = lifetime
 	$LifetimeTimer.start()
 
@@ -75,11 +82,11 @@ func _process(delta: float):
 	global_position += velocity * delta
 	
 	# Keep inbounds.
-	torus_warp()
+	check_bounds()
 	
 	rotation = velocity.angle()
 
-func torus_warp():
+func check_bounds():
 	if global_position.x < 0:
 		velocity.x *= -1
 	if global_position.y < 0:
@@ -156,11 +163,11 @@ func steering_as_neutral(boid:Boid) -> Vector2:
 
 ## Check if other is a prey.
 func is_prey(other: Boid) -> bool:
-	return other.damage_priority < self.damage_priority
+	return other.team != self.team and other.damage_priority < self.damage_priority
 
 ## Check if other is a predator.
 func is_predator(other: Boid) -> bool:
-	return other.damage_priority > self.damage_priority
+	return other.team != self.team and other.damage_priority > self.damage_priority
 
 ## Check aggression mode.
 func check_aggression(other: Boid) -> Behavior:

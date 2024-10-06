@@ -9,24 +9,3 @@ func wizard_process(delta):
 		battlefield.player = self
 	
 	look_at(get_viewport().get_mouse_position())
-
-func _input(event):
-	return
-	# Mouse in viewport coordinates.
-	if event is InputEventMouseButton:
-		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-			
-			for i in range(5):
-				var p = ParticlesManager.create_particle("cloud", battlefield)
-				p.rotation_degrees = randf_range(0,360)
-				p.global_position = event.position
-				
-			cast("decoy",event.position)
-		if event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
-			
-			for i in range(5):
-				var p = ParticlesManager.create_particle("cloud", battlefield)
-				p.rotation_degrees = randf_range(0,360)
-				p.global_position = event.position
-				
-			cast("spee",event.position)
