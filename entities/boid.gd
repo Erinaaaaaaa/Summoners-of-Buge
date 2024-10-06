@@ -25,7 +25,7 @@ signal deleted(Boid)
 @export_category("Rules")
 @export var max_speed = 500
 @export var cohesion_strength = 20
-@export var separation_strength = 500
+@export var separation_strength = 1000
 @export var alignment_strength = 10
 
 # --------------------------------
@@ -70,14 +70,14 @@ func _process(delta: float):
 
 func torus_warp():
 	if global_position.x < 0:
-		global_position.x  = get_viewport_rect().size.x
+		velocity.x *= -1
 	if global_position.y < 0:
-		global_position.y = get_viewport_rect().size.y
+		velocity.y *= -1
 		
 	if global_position.x >  get_viewport_rect().size.x:
-		global_position.x = 0
+		velocity.x *= -1
 	if global_position.y > get_viewport_rect().size.y:
-		global_position.y = 0
+		velocity.y *= -1
 
 # Returns angle/speed delta.
 func get_steering() -> Vector2:
