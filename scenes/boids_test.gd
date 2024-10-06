@@ -6,13 +6,14 @@ extends Node2D
 func _ready() -> void:	
 	for i in range(50): # Preys
 		var added : Boid = add_boid(Vector2(randi_range(100, 500),randi_range(100, 600)))
-		added.modulate = Color(0.5,0.5,1)
+		added.set_team(Enums.Team.BLUE)
 		added.damage_priority = 0
 		added.max_speed = 300
 		
 	for i in range(5): # Predators
 		var added : Boid = add_boid(Vector2(randi_range(700, 1200),randi_range(100, 600)))
-		added.modulate = Color(1,0.5,0.5)
+		added.set_team(Enums.Team.RED)
+		added.set_sprite("spee")
 		added.damage_priority = 1
 		added.max_speed = 400
 

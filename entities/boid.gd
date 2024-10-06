@@ -25,6 +25,7 @@ signal deleted(Boid)
 @export var lifetime = 20
 @export var health = 1
 @export var damage = 1
+@export var damage_capacity = 3
 
 @export_category("Rules")
 @export var max_speed = 300
@@ -57,12 +58,6 @@ func _ready():
 	var angle = randf_range(0, 2*PI)
 	velocity = Vector2.RIGHT.rotated(angle) * 50 #base speed
 	current_behavior = Behavior.NEUTRAL
-	
-	match team:
-		Enums.Team.RED:
-			modulate = Color(1, 0.3, 0.3)
-		Enums.Team.BLUE:
-			modulate = Color(0.3, 0.3, 1)
 	
 	$LifetimeTimer.wait_time = lifetime
 	$LifetimeTimer.start()
@@ -200,6 +195,14 @@ func rule_alignment(other: Boid) -> Vector2:
 func set_sprite(sprite_res):
 	$Sprite.set_sprite_frames(load(ResourcesManager.sprites[sprite_res]))
 
+func set_team(team):
+	self.team = team
+	match team:
+		Enums.Team.RED:
+			modulate = Color(1, 0.3, 0.3)
+		Enums.Team.BLUE:
+			modulate = Color(0.3, 0.3, 1)
+
 ## Properly remove this boid from the universe.
 func delete():
 	enabled = false
@@ -222,5 +225,8 @@ func _on_area_entered(area):
 		# (The other boid comes at us at a 90 degree angle or from front)
 		var b : Boid = area
 		if team != b.team:
-			if damage_priority <= b.damage_priority:
+			if damage_priority >= b.damage_priority:
+				damage_capacity -= 1
+			# If taking damage, or after having dealt too much damage
+			if damage_priority <= b.damage_priority or damage_capacity <= 0:
 				delete()
