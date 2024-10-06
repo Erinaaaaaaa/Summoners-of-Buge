@@ -13,5 +13,5 @@ boid_scene = ExtResource("2_g5dnq")
 [node name="DonutCollisionRectangle" type="CollisionPolygon2D" parent="ArenaWalls"]
 position = Vector2(631.5, 360.5)
 scale = Vector2(136.193, 38.7202)
-polygon = PackedVector2Array(-5.5, -10.5, 5.5, -10.5, 5.5, 10.5, -5.5, 10.5, -5.5, -10.5, -4.6368, 9.28456, 4.76163, 9.28456, 4.76163, -9.31039, -4.6368, -9.31039, -4.6368, 9.28456)
+polygon = PackedVector2Array(-5.5, -10.5, 5.5, -10.5, 5.5, 10.5, -5.5, 10.5, -5.5, -10.5, -4.5, 9.5, 4.5, 9.5, 4.5, -9.5, -4.5, -9.5, -4.5, 9.5)
 script = ExtResource("2_wbpld")

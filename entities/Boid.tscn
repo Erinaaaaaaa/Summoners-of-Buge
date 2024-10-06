@@ -71,6 +71,10 @@ offset_right = 9.0
 offset_bottom = 4.0
 color = Color(0, 0.532636, 0.867228, 1)
 
+[node name="LifetimeTimer" type="Timer" parent="."]
+one_shot = true
+
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="area_entered" from="Vision" to="." method="_on_vision_area_entered"]
 [connection signal="area_exited" from="Vision" to="." method="_on_vision_area_exited"]
+[connection signal="timeout" from="LifetimeTimer" to="." method="delete"]

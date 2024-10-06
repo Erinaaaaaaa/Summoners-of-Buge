@@ -22,6 +22,7 @@ signal deleted(Boid)
 @export var team = Enums.Team.RED
 @export var max_boids_vision = 5
 @export var damage_priority = 0
+@export var lifetime = 20
 
 @export_category("Rules")
 @export var max_speed = 300
@@ -37,6 +38,7 @@ signal deleted(Boid)
 
 # --------------------------------
 var visible_boids : Array[Area2D]
+var type = ""
 
 var current_behavior = Behavior.NEUTRAL
 var steer_towards = Vector2()
@@ -52,9 +54,9 @@ var health = 1
 func _ready():
 	var angle = randf_range(0, 2*PI)
 	velocity = Vector2.RIGHT.rotated(angle) * 50 #base speed
-	
 	current_behavior = Behavior.NEUTRAL
-	print(position)
+	$LifetimeTimer.wait_time = lifetime
+	$LifetimeTimer.start()
 
 func _process(delta: float):
 	if !enabled: return
