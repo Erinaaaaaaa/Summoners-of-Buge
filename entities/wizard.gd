@@ -7,9 +7,6 @@ class_name Wizard
 
 @export_category("Prefabs")
 @export var max_mana = 6
-@export var mana_scene : PackedScene
-
-@export var isPlayer : bool
 
 @export var battlefield : Battlefield
 
@@ -25,65 +22,21 @@ var animation_time = 0
 
 var mana_distance = 100
 
-var hood_sprite = preload("res://sprites/wizard/wiz_hood.png")
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	#if team == Enums.Team.RED:
-		#pool_area.add_to_group("red_pool_area")
-	#if team == Enums.Team.BLUE:
-		#pool_area.add_to_group("blue_pool_area")
-		
-	if !isPlayer:
-		$Sprite.texture = hood_sprite
-		player_wizard = get_parent().get_node("Wizard") #HARDCODED PLAYER ASSIGNMENT
-	else:
-		player_wizard = self
-		pass
+	wizard_ready()
 	
 	init_mana()
 	$SpawnTimer.start()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	
-	if isPlayer:
-		control_player()
-	else:
-		ai_enemy()
-		
+	wizard_process(delta)
 	render_mana()
-	pass
-	
-func _input(event):
-	# Do nothing if it's not the player
-	if !isPlayer: return
-	
-	# Mouse in viewport coordinates.
-	if event is InputEventMouseButton:
-		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-			
-			for i in range(5):
-				var p = ParticlesManager.create_particle("cloud", battlefield)
-				p.rotation_degrees = randf_range(0,360)
-				p.global_position = event.position
-				
-			battlefield.add_boid("boid_neutral", team, event.position)
-
-func control_player():
-	look_at(get_viewport().get_mouse_position())
-	pass
-	
-func ai_enemy():
-	look_at(player_wizard.global_position)
-	pass
-
-func cast_spawn_boid():
-	pass
 
 func init_mana() -> void:
 	while mana_display_instances.size() < max_mana:
-		var mana_instance = mana_scene.instantiate()
+		var mana_instance = ResourcesManager.create_instance("mana_ball")
 		mana_instance.position = global_position
 		add_child(mana_instance)
 		mana_display_instances.append(mana_instance)
@@ -104,7 +57,17 @@ func render_mana() -> void:
 func circle_around(pivot:Vector2, distance:float, offset:float) -> Vector2: 
 	return pivot + Vector2(cos(offset),sin(offset))*distance
 
-func _on_spawn_timer_timeout() -> void:
-	#create_boid()
-	return
-	
+## Functions used by player/AI
+
+func cast_spawn_boid(boid_type : String, team : Enums.Team, position : Vector2):
+	battlefield.add_boid(boid_type, team, position)
+##
+
+
+
+## Functions used by children classes
+
+func wizard_ready(): pass
+func wizard_process(delta): pass
+
+##

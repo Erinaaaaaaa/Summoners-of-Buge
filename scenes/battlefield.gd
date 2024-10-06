@@ -4,10 +4,12 @@ class_name Battlefield
 var boids = []
 var max_boids = 120
 
+var player : Wizard
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	for i in range(50):
-		add_boid("boid_neutral", Enums.Team.RED, Vector2(500,500))
+	for i in range(100):
+		pass #add_boid("boid_neutral", Enums.Team.RED, Vector2(randf_range(0,1000),randf_range(0,500)))
 
 
 func add_boid(boid_type : String, team : Enums.Team, position : Vector2):

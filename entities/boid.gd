@@ -24,7 +24,7 @@ signal deleted(Boid)
 
 @export_category("Rules")
 @export var max_speed = 500
-@export var cohesion_strength = 20
+@export var cohesion_strength = 5
 @export var separation_strength = 1000
 @export var alignment_strength = 10
 

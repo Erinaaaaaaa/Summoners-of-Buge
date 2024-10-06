@@ -31,13 +31,13 @@ position = Vector2(0, -1.5)
 shape = SubResource("RectangleShape2D_bgsxf")
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
+visible = false
 position = Vector2(15, 0)
 scale = Vector2(0.695725, 0.826858)
 polygon = PackedVector2Array(-22, -8, -22, 8, 26, 0)
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 rotation = 1.5708
-scale = Vector2(0.639745, 0.639745)
 sprite_frames = SubResource("SpriteFrames_i6dl7")
 
 [node name="Vision" type="Area2D" parent="."]

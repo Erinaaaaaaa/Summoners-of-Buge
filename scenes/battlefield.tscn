@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://bwetky2bp41wy"]
+[gd_scene load_steps=6 format=3 uid="uid://c6p3qanqbhxjk"]
 
 [ext_resource type="Script" path="res://scenes/battlefield.gd" id="1_udail"]
 [ext_resource type="Script" path="res://addons/donut_collision_polygon2D/donut_collision_rectangle2D.gd" id="3_0l1md"]
-[ext_resource type="PackedScene" uid="uid://bapgpu1bqvnw3" path="res://entities/wizard.tscn" id="4_rlop5"]
+[ext_resource type="PackedScene" uid="uid://cvsnl1olftulm" path="res://entities/wizard_ai.tscn" id="4_c0q7i"]
 [ext_resource type="Texture2D" uid="uid://bmsmi3e1w4vmn" path="res://sprites/environment/map_basic.png" id="5_4d0xd"]
+[ext_resource type="PackedScene" uid="uid://b6rss5shjc468" path="res://entities/wizard_player.tscn" id="5_m322d"]
 
 [node name="Battlefield" type="Node2D"]
 script = ExtResource("1_udail")
@@ -16,19 +17,17 @@ scale = Vector2(136.193, 38.7202)
 polygon = PackedVector2Array(-5.5, -10.5, 5.5, -10.5, 5.5, 10.5, -5.5, 10.5, -5.5, -10.5, -4.5, 9.5, 4.5, 9.5, 4.5, -9.5, -4.5, -9.5, -4.5, 9.5)
 script = ExtResource("3_0l1md")
 
-[node name="Wizard" parent="." node_paths=PackedStringArray("battlefield") instance=ExtResource("4_rlop5")]
-position = Vector2(300, 400)
-isPlayer = true
-battlefield = NodePath("..")
-
-[node name="Wizard2" parent="." node_paths=PackedStringArray("battlefield") instance=ExtResource("4_rlop5")]
-position = Vector2(1000, 400)
-team = 1
-battlefield = NodePath("..")
-
 [node name="Boids" type="Node2D" parent="."]
 
 [node name="MapBasic" type="Sprite2D" parent="."]
 z_index = -4096
 position = Vector2(640, 360)
 texture = ExtResource("5_4d0xd")
+
+[node name="Wizard" parent="." node_paths=PackedStringArray("battlefield") instance=ExtResource("4_c0q7i")]
+position = Vector2(1087, 350)
+battlefield = NodePath("..")
+
+[node name="WizardPlayer" parent="." node_paths=PackedStringArray("battlefield") instance=ExtResource("5_m322d")]
+position = Vector2(144, 350)
+battlefield = NodePath("..")
