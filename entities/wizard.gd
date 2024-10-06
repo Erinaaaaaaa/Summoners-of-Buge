@@ -13,13 +13,17 @@ class_name Wizard
 @export var max_mana = 6
 @export var mana_scene : PackedScene
 
+@export var isPlayer : bool
+
+
 #--- private vars ---
 var my_boids = []
-@export var mana = 6
+var mana = max_mana
 
 var mana_display_instances = []
 var animation_time = 0
 
+var hood_sprite = preload("res://sprites/wizard/wiz_hood.png")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -27,6 +31,8 @@ func _ready():
 		#pool_area.add_to_group("red_pool_area")
 	#if team == Enums.Team.BLUE:
 		#pool_area.add_to_group("blue_pool_area")
+	if !isPlayer:
+		$Sprite.texture = hood_sprite
 	init_mana()
 	$SpawnTimer.start()
 
