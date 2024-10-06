@@ -12,8 +12,8 @@ script = ExtResource("1_udail")
 [node name="ArenaWalls" type="Area2D" parent="." groups=["solid"]]
 
 [node name="DonutCollisionRectangle" type="CollisionPolygon2D" parent="ArenaWalls"]
-position = Vector2(631.5, 360.5)
-scale = Vector2(136.193, 38.7202)
+position = Vector2(631.5, 301)
+scale = Vector2(136.193, 31.131)
 polygon = PackedVector2Array(-5.5, -10.5, 5.5, -10.5, 5.5, 10.5, -5.5, 10.5, -5.5, -10.5, -4.5, 9.5, 4.5, 9.5, 4.5, -9.5, -4.5, -9.5, -4.5, 9.5)
 script = ExtResource("3_0l1md")
 
@@ -25,9 +25,24 @@ position = Vector2(640, 360)
 texture = ExtResource("5_4d0xd")
 
 [node name="Wizard" parent="." node_paths=PackedStringArray("battlefield") instance=ExtResource("4_c0q7i")]
-position = Vector2(1087, 350)
+position = Vector2(1150, 511)
 battlefield = NodePath("..")
 
 [node name="WizardPlayer" parent="." node_paths=PackedStringArray("battlefield") instance=ExtResource("5_m322d")]
-position = Vector2(144, 350)
+position = Vector2(88, 72)
 battlefield = NodePath("..")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_top = 592.0
+offset_right = 1280.0
+offset_bottom = 720.0
+
+[node name="Panel" type="Panel" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2

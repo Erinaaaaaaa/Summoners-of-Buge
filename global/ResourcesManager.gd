@@ -11,6 +11,14 @@ var particles = {
 	"cloud":"res://entities/particles/particle_cloud.tscn"
 }
 
+
+var spell_data = {
+	"spawn_weak_boids": {
+		"cost":1,
+		"count":5
+	}
+}
+
 func create_instance(entity_name : String):
 	if entities.has(entity_name):
 		var entity_scene = load(entities[entity_name])
