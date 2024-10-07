@@ -20,10 +20,11 @@ func wizard_process(delta):
 			for b in enemy_boids: avg_angle += global_position.angle_to_point(b.global_position)
 			avg_angle /= enemy_boids.size()
 			dash(avg_angle + PI/2, false)
+			cast("spee", global_position)
 	
 	# 1/400 chance every frame to dash towards player
 	if can_dash:
-		if randi()%100 == 0:
+		if randi()%400 == 0:
 			dash(rotation, false)
 	
 	timer += delta
