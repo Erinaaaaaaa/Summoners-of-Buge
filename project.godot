@@ -22,6 +22,7 @@ Enums="*res://utils/Enums.gd"
 ParticlesManager="*res://global/ParticlesManager.gd"
 ResourcesManager="*res://global/ResourcesManager.gd"
 GameManager="*res://global/GameManager.gd"
+SoundManager="*res://global/SoundManager.gd"
 
 [display]
 

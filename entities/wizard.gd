@@ -10,6 +10,14 @@ class_name Wizard
 
 @export var battlefield : Battlefield
 
+@export_category("Sounds")
+
+@export var mana_up :AudioStream
+@export var mana_down :AudioStream
+@export var wizard_hurt :AudioStream
+@export var wizard_death :AudioStream
+@export var fail_cast :AudioStream
+@export var no_cast :AudioStream
 
 #--- Non-inspector exposed vars ---
 var mana = max_mana
@@ -27,6 +35,8 @@ var casts_left = {
 	"decoy": 8*4,
 	"spee": 3*5
 }
+
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -79,7 +89,9 @@ func cast(spell_name : String, pos : Vector2):
 		print("ERROR: Wizard doesn't seem to be able to cast the spell '"+ spell_name + "'.")
 		return
 	
-	if !can_cast_spell(spell_name): return
+	if !can_cast_spell(spell_name): 
+		SoundManager.play_sound(fail_cast,1.2)
+		return
 	
 		
 	var spell_data = ResourcesManager.spell_data[spell_name]
@@ -87,6 +99,7 @@ func cast(spell_name : String, pos : Vector2):
 	
 	# Can't cast any more at all.
 	if casts_left[spell_name] <= 0:
+		SoundManager.play_sound(no_cast,1.2)
 		print("Can't cast spell anymore!") # Replace it with an animation or function eventualy
 		return
 	
@@ -95,6 +108,9 @@ func cast(spell_name : String, pos : Vector2):
 	
 	# Drain the mana first
 	gain_mana(-spell_cost)
+	
+	#Play the spells cast sound
+	SoundManager.play_sound(load(spell_data["sound"]),1.4)
 	
 	# Cast the number of spells needed
 	var i = min(casts_left[spell_name], cast_count)
@@ -141,7 +157,7 @@ func boid_killed(boid:Boid):
 
 func die():
 	wizard_on_death()
-	$DeathSound.play()
+	SoundManager.play_sound(wizard_death,1.2)
 	print("Wizard " + str(self) + " Fucking died!!!!!!")
 	$AnimationPlayer.play("death")
 	print($AnimationPlayer.current_animation)
@@ -179,6 +195,7 @@ func wizard_on_death(): pass
 
 
 func _on_mana_recharge_timer_timeout():
+	SoundManager.play_sound(mana_up,1.4)
 	gain_mana(1)
 
 

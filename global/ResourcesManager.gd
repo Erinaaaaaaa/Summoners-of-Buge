@@ -25,7 +25,8 @@ var spell_data = {
 			"lifetime": 20,
 			"max_speed": 300,
 			"damage_priority": 0,
-		}
+		},
+		"sound":"res://sfx/no.wav"
 	},
 	"spee": {
 		"cost":1,
@@ -35,7 +36,8 @@ var spell_data = {
 			"lifetime": 10,
 			"max_speed": 400,
 			"damage_priority": 1
-		}
+		},
+		"sound":"res://sfx/bounce.wav"
 	}
 }
 

@@ -9,45 +9,6 @@
 [ext_resource type="Texture2D" uid="uid://d0c6jsn4r8652" path="res://placeholder/basic.png" id="6_g1sbx"]
 [ext_resource type="Script" path="res://scenes/SpellsPanel.gd" id="6_phynt"]
 
-[sub_resource type="Animation" id="Animation_2l4ay"]
-resource_name = "playerDeath"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:zoom")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(0.4, 1),
-"update": 0,
-"values": [Vector2(1, 1), Vector2(2.5, 2.5)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(0.151572, 1),
-"update": 0,
-"values": [Vector2(640, 400), Vector2(120, 120)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath(".:rotation")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(0.4, 1),
-"update": 0,
-"values": [0.0, -0.174533]
-}
-
 [sub_resource type="Animation" id="Animation_0paph"]
 length = 0.001
 tracks/0/type = "value"
@@ -126,6 +87,45 @@ tracks/2/keys = {
 "values": [0.0, 0.174533]
 }
 
+[sub_resource type="Animation" id="Animation_2l4ay"]
+resource_name = "playerDeath"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:zoom")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.4, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(2.5, 2.5)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.151572, 1),
+"update": 0,
+"values": [Vector2(640, 400), Vector2(120, 120)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.4, 1),
+"update": 0,
+"values": [0.0, -0.174533]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_v6q77"]
 _data = {
 "RESET": SubResource("Animation_0paph"),
@@ -141,7 +141,7 @@ script = ExtResource("1_udail")
 [node name="DonutCollisionRectangle" type="CollisionPolygon2D" parent="ArenaWalls"]
 position = Vector2(631.5, 301)
 scale = Vector2(136.193, 31.131)
-polygon = PackedVector2Array(-5.05533, -10.504, 5.5, -10.5, 5.5179, 16.1254, -5.23889, 16.1897, -5.05533, -10.504, -4.6368, 13.4593, 4.76163, 13.4593, 4.76163, -9.66882, -4.6368, -9.66882, -4.6368, 13.4593)
+polygon = PackedVector2Array(-5.5, -10.5, 5.5, -10.5, 5.5, 10.5, -5.5, 10.5, -5.5, -10.5, -4.5, 9.5, 4.5, 9.5, 4.5, -9.5, -4.5, -9.5, -4.5, 9.5)
 script = ExtResource("3_0l1md")
 
 [node name="Boids" type="Node2D" parent="."]

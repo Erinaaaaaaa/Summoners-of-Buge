@@ -43,7 +43,8 @@ signal deleted(Boid)
 @export var wizard_node: Node2D
 @export var goal_strength = 0
 
-
+@export_category("Sounds")
+@export var boid_death : AudioStream
 
 # --------------------------------
 var battlefield : Battlefield
@@ -233,6 +234,7 @@ func delete():
 	var p = ParticlesManager.create_particle("die", battlefield)
 	p.rotation_degrees = global_rotation
 	p.global_position = global_position
+	SoundManager.play_sound(boid_death,2)
 	emit_signal("deleted", self)
 	queue_free()
 

@@ -1,12 +1,11 @@
-[gd_scene load_steps=14 format=3 uid="uid://bapgpu1bqvnw3"]
+[gd_scene load_steps=13 format=3 uid="uid://bapgpu1bqvnw3"]
 
 [ext_resource type="Script" path="res://entities/wizard.gd" id="1_plydg"]
 [ext_resource type="Texture2D" uid="uid://et6pd0y0x4h4" path="res://sprites/wizard/wiz_hat.png" id="2_4ornj"]
+[ext_resource type="AudioStream" uid="uid://bpck5yh2hjm2b" path="res://sfx/perk.wav" id="2_x8msy"]
 [ext_resource type="AudioStream" uid="uid://bv1t00ob2yr1r" path="res://sfx/tacobell.wav" id="3_aaouy"]
-[ext_resource type="Script" path="res://global/SoundManager.gd" id="4_0n3gf"]
-[ext_resource type="AudioStream" uid="uid://ccord1d0c67ca" path="res://sfx/hat.wav" id="6_u0eed"]
+[ext_resource type="Script" path="res://entities/sound_manager.gd" id="4_0n3gf"]
 [ext_resource type="AudioStream" uid="uid://3u6oyd5bas1e" path="res://sfx/no.wav" id="8_jo380"]
-[ext_resource type="AudioStream" uid="uid://bendpj2afj7vi" path="res://sfx/rice.wav" id="10_icknh"]
 [ext_resource type="AudioStream" uid="uid://b5xybpp8cno5v" path="res://sfx/slink.wav" id="11_ijxvm"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_83l56"]
@@ -114,8 +113,7 @@ _data = {
 
 [node name="Wizard" type="Area2D"]
 script = ExtResource("1_plydg")
-mana_up = ExtResource("6_u0eed")
-mana_down = ExtResource("10_icknh")
+mana_up = ExtResource("2_x8msy")
 wizard_death = ExtResource("3_aaouy")
 fail_cast = ExtResource("11_ijxvm")
 no_cast = ExtResource("8_jo380")
@@ -135,6 +133,9 @@ wait_time = 2.0
 libraries = {
 "": SubResource("AnimationLibrary_guj1e")
 }
+
+[node name="DeathSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_aaouy")
 
 [node name="SoundManager" type="Node" parent="."]
 script = ExtResource("4_0n3gf")
