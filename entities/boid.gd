@@ -263,6 +263,8 @@ func _on_area_entered(area):
 		if team != b.team:
 			if damage_priority >= b.damage_priority:
 				damage_capacity -= 1
+				if damage_capacity == 0: delete()
 			# If taking damage, or after having dealt too much damage
-			if damage_priority <= b.damage_priority or damage_capacity <= 0:
-				delete()
+			if damage_priority <= b.damage_priority:
+				health -= 1
+				if health <= 0: delete()

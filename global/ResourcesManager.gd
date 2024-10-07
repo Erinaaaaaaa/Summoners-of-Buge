@@ -24,9 +24,11 @@ var spell_data = {
 		"count":8,
 		"options": {
 			"sprite": "decoy",
+			"health":1,
 			"lifetime": 20,
 			"max_speed": 300,
 			"damage_priority": 0,
+			"damage_capacity":3,
 		},
 		"sound":"res://sfx/no.wav"
 	},
@@ -35,9 +37,11 @@ var spell_data = {
 		"count":3,
 		"options": {
 			"sprite": "spee",
+			"health":1,
 			"lifetime": 10,
 			"max_speed": 400,
-			"damage_priority": 1
+			"damage_priority": 1,
+			"damage_capacity":3,
 		},
 		"sound":"res://sfx/bounce.wav"
 	},
@@ -46,9 +50,11 @@ var spell_data = {
 		"count":2,
 		"options": {
 			"sprite": "spidler",
+			"health":10,
 			"lifetime": 17,
-			"max_speed": 300,
-			"damage_priority": 2
+			"max_speed": 200,
+			"damage_priority": -1,
+			"damage_capacity":10,
 		},
 		"sound":"res://sfx/bounce.wav"
 	},
@@ -57,9 +63,11 @@ var spell_data = {
 		"count":1,
 		"options": {
 			"sprite": "snipe",
+			"health":1,
 			"lifetime": 7,
 			"max_speed": 900,
-			"damage_priority": 1
+			"damage_priority": 4,
+			"damage_capacity":5,
 		},
 		"sound":"res://sfx/bounce.wav"
 	}

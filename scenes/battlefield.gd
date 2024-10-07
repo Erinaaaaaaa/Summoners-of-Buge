@@ -30,8 +30,10 @@ func add_boid(boid_type : String, team : Enums.Team, position : Vector2, rotatio
 	# Set settings
 	var boid_settings = ResourcesManager.spell_data[boid_type]["options"]
 	boid_i.max_speed = boid_settings["max_speed"]
+	boid_i.health = boid_settings["health"]
 	boid_i.damage_priority = boid_settings["damage_priority"]
 	boid_i.lifetime = boid_settings["lifetime"]
+	boid_i.damage_capacity = boid_settings["damage_capacity"]
 	boid_i.set_sprite(boid_settings["sprite"])
 	boid_i.set_team(team)
 	match team:
