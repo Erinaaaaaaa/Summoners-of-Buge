@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://o6ad1jl1xbnt"]
+[gd_scene load_steps=17 format=3 uid="uid://o6ad1jl1xbnt"]
 
 [ext_resource type="Script" path="res://scenes/main_menu.gd" id="1_esosg"]
 [ext_resource type="Texture2D" uid="uid://cu182mrbqdi51" path="res://sprites/environment/map_basic_padding.png" id="1_hjl4w"]
@@ -8,8 +8,15 @@
 [ext_resource type="Texture2D" uid="uid://cs7x6446i6ncq" path="res://sprites/monito-0.png" id="5_gal55"]
 [ext_resource type="Texture2D" uid="uid://bwm14olubttwj" path="res://sprites/info/right_click_is_dash.png" id="7_lr5dx"]
 [ext_resource type="Texture2D" uid="uid://b6ilwrxs03hpa" path="res://sprites/info/mana_is_health.png" id="8_4qoek"]
+[ext_resource type="Texture2D" uid="uid://dwabwfp85ijvu" path="res://sprites/creatures/butterfly_1.png" id="9_230t5"]
 [ext_resource type="Texture2D" uid="uid://xow0icmaxmg5" path="res://sprites/info/mana_is_summon.png" id="9_qiio6"]
+[ext_resource type="Texture2D" uid="uid://bs5w8rx6j6lax" path="res://sprites/creatures/spirit_1.png" id="10_d7rxi"]
 [ext_resource type="PackedScene" uid="uid://dlfo2pcrxno5j" path="res://scenes/hero_art.tscn" id="10_e8dxb"]
+[ext_resource type="Texture2D" uid="uid://iwuyrt3tgjb0" path="res://sprites/creatures/snipe_1.png" id="11_5kqso"]
+[ext_resource type="Texture2D" uid="uid://p1mntngjhepq" path="res://sprites/creatures/spider_2.png" id="12_glbhe"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_my51s"]
+bg_color = Color(0, 0, 0, 0.968627)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_sh1ba"]
 animations = [{
@@ -44,11 +51,15 @@ offset_bottom = 800.0
 metadata/_edit_lock_ = true
 
 [node name="TitleText" type="Label" parent="CanvasLayer/UI"]
-layout_mode = 0
-offset_left = 615.0
-offset_top = 117.0
-offset_right = 1155.0
-offset_bottom = 217.0
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -270.0
+offset_top = 66.0
+offset_right = 270.0
+offset_bottom = 166.0
+grow_horizontal = 2
 theme_override_constants/outline_size = 10
 theme_override_fonts/font = ExtResource("2_3ojqi")
 theme_override_font_sizes/font_size = 50
@@ -56,102 +67,91 @@ text = "Summoners of Buge"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Control" type="VBoxContainer" parent="CanvasLayer/UI"]
+[node name="ShowInstructions" type="Button" parent="CanvasLayer/UI"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -159.0
+offset_top = -177.0
+offset_right = 164.0
+offset_bottom = -119.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("2_3ojqi")
+theme_override_font_sizes/font_size = 30
+text = "Start game"
+
+[node name="ShowCredits" type="Button" parent="CanvasLayer/UI"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -156.5
+offset_top = -104.0
+offset_right = 166.5
+offset_bottom = -46.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("2_3ojqi")
+theme_override_font_sizes/font_size = 30
+text = "Credits
+"
+
+[node name="InstructionsPanel" type="Panel" parent="CanvasLayer/UI"]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 120.0
-offset_top = 247.0
-offset_right = 386.0
-offset_bottom = 375.0
+offset_left = -640.0
+offset_top = -357.0
+offset_right = 640.0
+offset_bottom = 332.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_my51s")
 
-[node name="Start Button" type="Button" parent="CanvasLayer/UI/Control"]
-layout_mode = 2
-theme_override_fonts/font = ExtResource("2_3ojqi")
-theme_override_font_sizes/font_size = 50
-text = "START
-DUEL"
+[node name="Control" type="Control" parent="CanvasLayer/UI/InstructionsPanel"]
+anchors_preset = 0
+offset_right = 1275.0
+offset_bottom = 322.0
 
-[node name="CreditsText" type="Label" parent="CanvasLayer/UI"]
+[node name="ManaText" type="Label" parent="CanvasLayer/UI/InstructionsPanel/Control"]
 layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 8.0
-offset_top = -185.0
-offset_right = 1288.0
-offset_bottom = -8.0
-grow_vertical = 0
-theme_override_constants/outline_size = 5
-theme_override_fonts/font = ExtResource("2_3ojqi")
-theme_override_font_sizes/font_size = 22
-text = "Game developped for the LD56 - Tiny Creatures
-
-NoahAmp (Pengu123): Code, Music
-Eg-GE: Code, Art, SFX
-Erina: Code"
-vertical_alignment = 2
-
-[node name="DashText" type="Label" parent="CanvasLayer/UI"]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -1199.0
-offset_top = -235.0
-offset_right = -799.0
-offset_bottom = -175.0
-grow_horizontal = 0
-grow_vertical = 0
-theme_override_constants/outline_size = 5
-theme_override_fonts/font = ExtResource("2_3ojqi")
-theme_override_font_sizes/font_size = 22
-text = "Right click on the battlefield
-to dash to your cursor!"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="ManaText" type="Label" parent="CanvasLayer/UI"]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -1199.0
-offset_top = -624.0
-offset_right = -799.0
-offset_bottom = -564.0
-grow_horizontal = 0
-grow_vertical = 0
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -169.5
+offset_top = 217.0
+offset_right = 230.5
+offset_bottom = 304.0
+grow_horizontal = 2
 theme_override_constants/outline_size = 5
 theme_override_fonts/font = ExtResource("2_3ojqi")
 theme_override_font_sizes/font_size = 22
 text = "Your mana is also your health.
-You die if your mana goes negative!"
+You die if your mana goes negative, so summon wisely."
 horizontal_alignment = 1
 vertical_alignment = 1
+autowrap_mode = 2
 
-[node name="SummonText" type="Label" parent="CanvasLayer/UI"]
+[node name="SummonText" type="Label" parent="CanvasLayer/UI/InstructionsPanel/Control"]
 layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -1199.0
-offset_top = -423.0
-offset_right = -799.0
-offset_bottom = -363.0
-grow_horizontal = 0
-grow_vertical = 0
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -609.5
+offset_top = 217.0
+offset_right = -209.5
+offset_bottom = 277.0
+grow_horizontal = 2
 theme_override_constants/outline_size = 5
 theme_override_fonts/font = ExtResource("2_3ojqi")
 theme_override_font_sizes/font_size = 22
@@ -160,36 +160,263 @@ And defeat your opponent to win!"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Monito-1" type="AnimatedSprite2D" parent="CanvasLayer/UI"]
-position = Vector2(276, 750)
+[node name="DashText" type="Label" parent="CanvasLayer/UI/InstructionsPanel/Control"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 237.5
+offset_top = 217.0
+offset_right = 637.5
+offset_bottom = 277.0
+grow_horizontal = 2
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("2_3ojqi")
+theme_override_font_sizes/font_size = 22
+text = "Right click on the battlefield
+to dash to your cursor!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Mana1" type="Sprite2D" parent="CanvasLayer/UI/InstructionsPanel/Control"]
+position = Vector2(675, 112)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("8_4qoek")
+
+[node name="Spirit1" type="Sprite2D" parent="CanvasLayer/UI/InstructionsPanel/Control"]
+position = Vector2(237, 105)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("9_qiio6")
+
+[node name="WizHat" type="Sprite2D" parent="CanvasLayer/UI/InstructionsPanel/Control"]
+position = Vector2(1075, 111)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("7_lr5dx")
+
+[node name="Button Container" type="VBoxContainer" parent="CanvasLayer/UI/InstructionsPanel"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -133.0
+offset_top = -152.0
+offset_right = 133.0
+offset_bottom = -24.0
+grow_horizontal = 2
+grow_vertical = 0
+alignment = 1
+
+[node name="Start Button" type="Button" parent="CanvasLayer/UI/InstructionsPanel/Button Container"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_3ojqi")
+theme_override_font_sizes/font_size = 30
+text = "START
+DUEL"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/UI/InstructionsPanel"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -640.0
+offset_top = -350.0
+offset_right = 635.0
+offset_bottom = -212.0
+grow_horizontal = 2
+grow_vertical = 0
+alignment = 1
+
+[node name="ButterflySprite" type="Control" parent="CanvasLayer/UI/InstructionsPanel/HBoxContainer"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+
+[node name="Butterfly1" type="Sprite2D" parent="CanvasLayer/UI/InstructionsPanel/HBoxContainer/ButterflySprite"]
+position = Vector2(28.5, 64)
+texture = ExtResource("9_230t5")
+
+[node name="Description" type="Label" parent="CanvasLayer/UI/InstructionsPanel/HBoxContainer/ButterflySprite"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -36.0
+offset_top = -36.0
+offset_right = 81.0
+offset_bottom = 36.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_3ojqi")
+theme_override_font_sizes/font_size = 18
+text = "Weak,
+But comes in numbers!"
+autowrap_mode = 3
+
+[node name="SpeeSprite" type="Control" parent="CanvasLayer/UI/InstructionsPanel/HBoxContainer"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+
+[node name="Butterfly1" type="Sprite2D" parent="CanvasLayer/UI/InstructionsPanel/HBoxContainer/SpeeSprite"]
+position = Vector2(28.5, 64)
+texture = ExtResource("10_d7rxi")
+
+[node name="Description" type="Label" parent="CanvasLayer/UI/InstructionsPanel/HBoxContainer/SpeeSprite"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -36.0
+offset_top = -36.0
+offset_right = 65.0
+offset_bottom = 36.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_3ojqi")
+theme_override_font_sizes/font_size = 18
+text = "Stronger,
+Faster,
+Reliable."
+
+[node name="SniperSprite" type="Control" parent="CanvasLayer/UI/InstructionsPanel/HBoxContainer"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+
+[node name="Butterfly1" type="Sprite2D" parent="CanvasLayer/UI/InstructionsPanel/HBoxContainer/SniperSprite"]
+position = Vector2(28.5, 64)
+texture = ExtResource("11_5kqso")
+
+[node name="Description" type="Label" parent="CanvasLayer/UI/InstructionsPanel/HBoxContainer/SniperSprite"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -47.0
+offset_top = -36.0
+offset_right = 111.0
+offset_bottom = 36.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_3ojqi")
+theme_override_font_sizes/font_size = 18
+text = "Very fast,
+Quick,
+Straight damage!"
+autowrap_mode = 3
+
+[node name="SpidlerSprite" type="Control" parent="CanvasLayer/UI/InstructionsPanel/HBoxContainer"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+
+[node name="Butterfly1" type="Sprite2D" parent="CanvasLayer/UI/InstructionsPanel/HBoxContainer/SpidlerSprite"]
+position = Vector2(28.5, 64)
+texture = ExtResource("12_glbhe")
+
+[node name="Description" type="Label" parent="CanvasLayer/UI/InstructionsPanel/HBoxContainer/SpidlerSprite"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -36.0
+offset_top = -36.0
+offset_right = 101.0
+offset_bottom = 36.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_3ojqi")
+theme_override_font_sizes/font_size = 18
+text = "Expensive
+Slow,
+But very tanky!"
+autowrap_mode = 2
+
+[node name="CreditsPanel" type="Panel" parent="CanvasLayer/UI"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -640.0
+offset_top = -357.0
+offset_right = 640.0
+offset_bottom = 332.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_my51s")
+
+[node name="Control" type="Control" parent="CanvasLayer/UI/CreditsPanel"]
+anchors_preset = 0
+offset_right = 1275.0
+offset_bottom = 653.0
+
+[node name="Monito-1" type="AnimatedSprite2D" parent="CanvasLayer/UI/CreditsPanel/Control"]
+position = Vector2(795, 226)
 scale = Vector2(0.3, 0.3)
 sprite_frames = SubResource("SpriteFrames_sh1ba")
 frame = 1
 frame_progress = 0.028508
+
+[node name="CreditsText" type="Label" parent="CanvasLayer/UI/CreditsPanel/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 31.0
+offset_bottom = 69.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("2_3ojqi")
+theme_override_font_sizes/font_size = 22
+text = "Game developped for the LD56 - Tiny Creatures
+
+
+
+NoahAmp (Pengu123): Code, Music
+
+Eg-GE: Code, Art, SFX
+
+Erina: Code"
+horizontal_alignment = 1
+
+[node name="ReturnToMenu" type="Button" parent="CanvasLayer/UI/CreditsPanel/Control"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -161.5
+offset_top = -58.0
+offset_right = 161.5
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("2_3ojqi")
+theme_override_font_sizes/font_size = 30
+text = "Return to menu"
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_x6wlp")
 volume_db = 10.0
 autoplay = true
 
-[node name="WizHat" type="Sprite2D" parent="."]
-position = Vector2(278.56, 508)
-scale = Vector2(0.7, 0.7)
-texture = ExtResource("7_lr5dx")
-
-[node name="Mana1" type="Sprite2D" parent="."]
-position = Vector2(278.56, 100)
-scale = Vector2(0.7, 0.7)
-texture = ExtResource("8_4qoek")
-
-[node name="Spirit1" type="Sprite2D" parent="."]
-position = Vector2(278.56, 322)
-scale = Vector2(0.7, 0.7)
-texture = ExtResource("9_qiio6")
-
 [node name="HeroArt" parent="." instance=ExtResource("10_e8dxb")]
-position = Vector2(887, 246)
+position = Vector2(639, 166)
 scale = Vector2(1.5, 1.5)
-metadata/_edit_lock_ = true
 
-[connection signal="button_down" from="CanvasLayer/UI/Control/Start Button" to="." method="_on_start_button_button_down"]
+[connection signal="button_down" from="CanvasLayer/UI/ShowInstructions" to="." method="_on_show_instructions_button_down"]
+[connection signal="button_down" from="CanvasLayer/UI/ShowCredits" to="." method="_on_show_credits_button_down"]
+[connection signal="button_down" from="CanvasLayer/UI/InstructionsPanel/Button Container/Start Button" to="." method="_on_start_button_button_down"]
+[connection signal="button_down" from="CanvasLayer/UI/CreditsPanel/Control/ReturnToMenu" to="." method="_on_return_to_menu_button_down"]
