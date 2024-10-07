@@ -19,12 +19,12 @@ func wizard_process(delta):
 			var avg_angle = 0
 			for b in enemy_boids: avg_angle += global_position.angle_to_point(b.global_position)
 			avg_angle /= enemy_boids.size()
-			dash(avg_angle + PI/2)
+			dash(avg_angle + PI/2, false)
 	
-	# 1/100th chance every frame to dash towards player
+	# 1/400 chance every frame to dash towards player
 	if can_dash:
 		if randi()%100 == 0:
-			dash(rotation)
+			dash(rotation, false)
 	
 	timer += delta
 	if timer > cast_spell_cooldown and can_cast_spell(next_spell):

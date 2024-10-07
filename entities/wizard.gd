@@ -213,15 +213,16 @@ func gain_mana(val):
 		mana = -1
 		die()
 
-func dash(direction_rad : float):
+func dash(direction_rad : float, enable_tooltip:bool = true):
 	vel = Vector2.from_angle(direction_rad).normalized() * 25
 	can_dash = false
 	get_tree().create_timer(dash_cooldown).timeout.connect(func():
 		can_dash = true
-		var p = ParticlesManager.create_particle("tooltip", battlefield)
-		p.position = global_position
-		p.label.text = "Can dash again!"
-		p.label.modulate = Color.YELLOW
+		if enable_tooltip:
+			var p = ParticlesManager.create_particle("tooltip", battlefield)
+			p.position = global_position
+			p.label.text = "Can dash again!"
+			p.label.modulate = Color.YELLOW
 	)
 
 func hit():

@@ -1,9 +1,28 @@
-[gd_scene load_steps=5 format=3 uid="uid://o6ad1jl1xbnt"]
+[gd_scene load_steps=11 format=3 uid="uid://o6ad1jl1xbnt"]
 
 [ext_resource type="Script" path="res://scenes/main_menu.gd" id="1_esosg"]
 [ext_resource type="Texture2D" uid="uid://cu182mrbqdi51" path="res://sprites/environment/map_basic_padding.png" id="1_hjl4w"]
 [ext_resource type="FontFile" uid="uid://djdjfk6est2gj" path="res://WorkSans-VariableFont_wght.ttf" id="2_3ojqi"]
+[ext_resource type="Texture2D" uid="uid://vmkwlc5o2wc2" path="res://sprites/monito-1.png" id="4_ne2hh"]
 [ext_resource type="AudioStream" uid="uid://c2274hkmxsai" path="res://LD54 - Menu Music.wav" id="4_x6wlp"]
+[ext_resource type="Texture2D" uid="uid://cs7x6446i6ncq" path="res://sprites/monito-0.png" id="5_gal55"]
+[ext_resource type="Texture2D" uid="uid://et6pd0y0x4h4" path="res://sprites/wizard/wiz_hat.png" id="7_5j32j"]
+[ext_resource type="Texture2D" uid="uid://sahb5416d347" path="res://sprites/mana/mana_1.png" id="8_lyujm"]
+[ext_resource type="Texture2D" uid="uid://bs5w8rx6j6lax" path="res://sprites/creatures/spirit_1.png" id="9_1ukr5"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_sh1ba"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_ne2hh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_gal55")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
 
 [node name="MainMenu" type="Node2D"]
 script = ExtResource("1_esosg")
@@ -41,8 +60,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -217.0
+offset_top = 108.0
 offset_right = 218.0
-offset_bottom = 168.0
+offset_bottom = 276.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -50,7 +70,13 @@ grow_vertical = 2
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_3ojqi")
 theme_override_font_sizes/font_size = 50
-text = "Start"
+text = "Fight!"
+
+[node name="Monito-1" type="AnimatedSprite2D" parent="CanvasLayer/UI/Control"]
+position = Vector2(-268, 275)
+scale = Vector2(0.3, 0.3)
+sprite_frames = SubResource("SpriteFrames_sh1ba")
+frame_progress = 0.412252
 
 [node name="Label2" type="Label" parent="CanvasLayer/UI"]
 layout_mode = 1
@@ -60,7 +86,7 @@ anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -1280.0
-offset_top = -258.0
+offset_top = -177.0
 grow_horizontal = 0
 grow_vertical = 0
 theme_override_constants/outline_size = 5
@@ -74,9 +100,83 @@ Music: NoahAmp (Pengu123)
 SFX: Eg-GE"
 vertical_alignment = 2
 
+[node name="Label3" type="Label" parent="CanvasLayer/UI"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -310.0
+offset_top = -433.326
+offset_right = -90.0
+offset_bottom = -406.326
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("2_3ojqi")
+theme_override_font_sizes/font_size = 22
+text = "Right click to dash!"
+vertical_alignment = 2
+
+[node name="Label4" type="Label" parent="CanvasLayer/UI"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -789.0
+offset_top = -465.0
+offset_right = -398.0
+offset_bottom = -408.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("2_3ojqi")
+theme_override_font_sizes/font_size = 22
+text = "Your mana is also your health.
+You die when your mana is negative!"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="Label5" type="Label" parent="CanvasLayer/UI"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1229.0
+offset_top = -466.5
+offset_right = -838.0
+offset_bottom = -409.5
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("2_3ojqi")
+theme_override_font_sizes/font_size = 22
+text = "Use Mana to summon creatures,
+And defeat your opponent to win!"
+horizontal_alignment = 1
+vertical_alignment = 2
+
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_x6wlp")
 volume_db = 10.0
 autoplay = true
+
+[node name="WizHat" type="Sprite2D" parent="."]
+position = Vector2(1084, 306.674)
+scale = Vector2(0.276559, 0.276559)
+texture = ExtResource("7_5j32j")
+
+[node name="Mana1" type="Sprite2D" parent="."]
+position = Vector2(684, 290)
+texture = ExtResource("8_lyujm")
+
+[node name="Spirit1" type="Sprite2D" parent="."]
+position = Vector2(249, 295.5)
+texture = ExtResource("9_1ukr5")
 
 [connection signal="button_down" from="CanvasLayer/UI/Control/Start Button" to="." method="_on_start_button_button_down"]
