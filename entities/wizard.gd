@@ -5,6 +5,7 @@ class_name Wizard
 @export_category("Properties")
 @export var team = Enums.Team.RED
 @export var dash_cooldown = 1.0
+@export var mana_recharge_cooldown = 2.0
 
 @export_category("Prefabs")
 @export var max_mana = 6
@@ -49,9 +50,12 @@ var casts_left = {
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	
+	
 	wizard_ready()
 	
 	init_mana()
+	$ManaRechargeTimer.wait_time = mana_recharge_cooldown
 	$ManaRechargeTimer.start()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
