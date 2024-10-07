@@ -23,4 +23,14 @@ func _input(event):
 				var p = ParticlesManager.create_particle("tooltip", battlefield)
 				p.position = global_position
 				p.label.text = "Dash recharging!"
-			
+	
+	if event is InputEventKey and event.pressed:
+		match event.keycode:
+			KEY_1:
+				cast("decoy", global_position)
+			KEY_2:
+				cast("spee", global_position)
+			KEY_3:
+				cast("snipe", global_position)
+			KEY_4:
+				cast("spidler", global_position)
