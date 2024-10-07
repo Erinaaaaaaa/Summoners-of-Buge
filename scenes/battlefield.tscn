@@ -1,13 +1,16 @@
-[gd_scene load_steps=13 format=3 uid="uid://c6p3qanqbhxjk"]
+[gd_scene load_steps=16 format=3 uid="uid://c6p3qanqbhxjk"]
 
 [ext_resource type="Script" path="res://scenes/battlefield.gd" id="1_udail"]
+[ext_resource type="AudioStream" uid="uid://btj8pa4iwoslp" path="res://LD54 - Win Music.wav" id="2_qor7x"]
 [ext_resource type="Script" path="res://addons/donut_collision_polygon2D/donut_collision_rectangle2D.gd" id="3_0l1md"]
+[ext_resource type="AudioStream" uid="uid://flyi0ilmsq2q" path="res://LD54 - Lose Music.wav" id="3_oh46a"]
 [ext_resource type="PackedScene" uid="uid://cvsnl1olftulm" path="res://entities/wizard_ai.tscn" id="4_c0q7i"]
 [ext_resource type="Texture2D" uid="uid://bmsmi3e1w4vmn" path="res://sprites/environment/map_basic.png" id="5_4d0xd"]
 [ext_resource type="PackedScene" uid="uid://b6rss5shjc468" path="res://entities/wizard_player.tscn" id="5_m322d"]
 [ext_resource type="Texture2D" uid="uid://8d618kqa3fpk" path="res://placeholder/decoy.png" id="6_7vt73"]
 [ext_resource type="Texture2D" uid="uid://d0c6jsn4r8652" path="res://placeholder/basic.png" id="6_g1sbx"]
 [ext_resource type="Script" path="res://scenes/SpellsPanel.gd" id="6_phynt"]
+[ext_resource type="AudioStream" uid="uid://bgom8erlic70x" path="res://LD54 - Battle Music.wav" id="9_htctq"]
 
 [sub_resource type="Animation" id="Animation_0paph"]
 length = 0.001
@@ -133,8 +136,11 @@ _data = {
 "playerDeath": SubResource("Animation_2l4ay")
 }
 
-[node name="Battlefield" type="Node2D"]
+[node name="Battlefield" type="Node2D" node_paths=PackedStringArray("music_player")]
 script = ExtResource("1_udail")
+music_player = NodePath("Music")
+win_music = ExtResource("2_qor7x")
+lose_music = ExtResource("3_oh46a")
 
 [node name="ArenaWalls" type="Area2D" parent="." groups=["solid"]]
 
@@ -245,5 +251,10 @@ text = "9999"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="Music" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("9_htctq")
+volume_db = 10.0
+
 [connection signal="button_down" from="Camera2D/Control/Panel/HBoxContainer/Button" to="." method="_on_spell_button_down" binds= ["decoy"]]
 [connection signal="button_down" from="Camera2D/Control/Panel/HBoxContainer/Button3" to="." method="_on_spell_button_down" binds= ["spee"]]
+[connection signal="finished" from="Music" to="." method="_on_music_finished"]

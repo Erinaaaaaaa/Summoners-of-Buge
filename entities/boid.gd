@@ -75,6 +75,7 @@ func _ready():
 
 func _process(delta: float):
 	if !enabled: return
+	if !GameManager.is_game_running: delete(false)
 	
 	var steering = get_steering()
 	
@@ -229,12 +230,13 @@ func set_team(team):
 			modulate = Color(0.3, 0.3, 1)
 
 ## Properly remove this boid from the universe.
-func delete():
+func delete(use_fx : bool = true):
 	enabled = false
-	var p = ParticlesManager.create_particle("die", battlefield)
-	p.rotation_degrees = global_rotation
-	p.global_position = global_position
-	SoundManager.play_sound(boid_death,2)
+	if use_fx:
+		var p = ParticlesManager.create_particle("die", battlefield)
+		p.rotation_degrees = global_rotation
+		p.global_position = global_position
+		SoundManager.play_sound(boid_death,2,-3)
 	emit_signal("deleted", self)
 	queue_free()
 

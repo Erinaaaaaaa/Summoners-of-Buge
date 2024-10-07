@@ -12,7 +12,7 @@ func _ready():
 
 
 
-func play_sound(sound : AudioStream, randomness : float = 1):
+func play_sound(sound : AudioStream, randomness : float = 1, volume_delta : float = 0):
 	if !sound: 
 		print("Sfx call with no sound")
 		print(sound)
@@ -24,6 +24,7 @@ func play_sound(sound : AudioStream, randomness : float = 1):
 	
 	var player_instance = AudioStreamPlayer.new()
 	player_instance.stream = instance
+	player_instance.volume_db = volume_delta
 	player_instance.finished.connect(player_done.bind(player_instance))
 	add_child(player_instance)
 	player_instance.play()

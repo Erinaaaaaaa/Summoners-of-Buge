@@ -3,7 +3,8 @@ extends Wizard
 
 func wizard_ready():
 	type = Enums.Player.PLAYER
-	pass
+	if battlefield and !battlefield.player:
+		battlefield.player = self
 
 func wizard_process(delta):
 	if battlefield and !battlefield.player:
