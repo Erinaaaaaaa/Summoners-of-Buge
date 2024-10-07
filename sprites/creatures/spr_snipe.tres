@@ -1,0 +1,18 @@
+[gd_resource type="SpriteFrames" load_steps=3 format=3 uid="uid://pwxv0kmjmt4d"]
+
+[ext_resource type="Texture2D" uid="uid://iwuyrt3tgjb0" path="res://sprites/creatures/snipe_1.png" id="1_kksby"]
+[ext_resource type="Texture2D" uid="uid://bfoljrjs71btn" path="res://sprites/creatures/snipe_2.png" id="2_so2h7"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_kksby")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_so2h7")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
