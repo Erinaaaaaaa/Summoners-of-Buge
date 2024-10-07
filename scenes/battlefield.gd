@@ -10,6 +10,8 @@ var player : Wizard
 @export var win_music : AudioStream
 @export var lose_music : AudioStream
 
+@export var ui_canvas : CanvasLayer
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	GameManager.battlefield = self
