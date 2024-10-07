@@ -37,5 +37,7 @@ func wizard_process(delta):
 func choose_next_spell():
 	if randi()%2 == 0:
 		next_spell = "spee"
+	elif randi()%6 == 0:
+		next_spell = "snipe"
 	else:
 		next_spell = "decoy"
