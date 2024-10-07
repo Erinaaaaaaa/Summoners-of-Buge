@@ -18,14 +18,14 @@ func _ready():
 	GameManager.is_game_running = true
 	music_player.play()
 
-func add_boid(boid_type : String, team : Enums.Team, position : Vector2):
+func add_boid(boid_type : String, team : Enums.Team, position : Vector2, rotation):
 	if  boids.size() >= max_boids:
 		print("Max entities reached. Can't create a new boid.")
 		return null
 	
 	var boid_i : Boid = ResourcesManager.create_instance("boid_neutral") as Boid
 	boid_i.position = position
-	boid_i.rotation_degrees = randf_range(0,360)
+	boid_i.global_rotation = rotation
 	
 	# Set settings
 	var boid_settings = ResourcesManager.spell_data[boid_type]["options"]

@@ -157,7 +157,7 @@ func cast(spell_name : String, pos : Vector2):
 	var i = min(casts_left[spell_name], cast_count)
 	while i > 0:
 		var summon_pos = circle_around(summon_pivot,30*pow(i,0.5),((i+1)*PI*2)/6)
-		var boid = cast_spawn_boid(spell_name,summon_pos,summon_pivot.angle_to_point(pos))
+		var boid = cast_spawn_boid(spell_name,summon_pos,global_rotation)
 		boid.type = spell_name
 		boid.connect("deleted", boid_killed)
 		i -= 1
@@ -191,7 +191,7 @@ func can_cast_spell(spell_name : String):
 
 func cast_spawn_boid(boid_name, pos, rot):
 	
-	return battlefield.add_boid(boid_name, team, pos)
+	return battlefield.add_boid(boid_name, team, pos, rot)
 
 func boid_killed(boid:Boid):
 	casts_left[boid.type] += 1

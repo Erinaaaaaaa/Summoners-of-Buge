@@ -65,7 +65,7 @@ var velocity = Vector2.ZERO
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	battlefield = get_tree().current_scene
-	var angle = randf_range(0, 2*PI)
+	var angle = global_rotation
 	velocity = Vector2.RIGHT.rotated(angle) * 50 #base speed
 	current_behavior = Behavior.NEUTRAL
 	
