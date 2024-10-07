@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://o6ad1jl1xbnt"]
+[gd_scene load_steps=12 format=3 uid="uid://o6ad1jl1xbnt"]
 
 [ext_resource type="Script" path="res://scenes/main_menu.gd" id="1_esosg"]
 [ext_resource type="Texture2D" uid="uid://cu182mrbqdi51" path="res://sprites/environment/map_basic_padding.png" id="1_hjl4w"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://et6pd0y0x4h4" path="res://sprites/wizard/wiz_hat.png" id="7_5j32j"]
 [ext_resource type="Texture2D" uid="uid://sahb5416d347" path="res://sprites/mana/mana_1.png" id="8_lyujm"]
 [ext_resource type="Texture2D" uid="uid://bs5w8rx6j6lax" path="res://sprites/creatures/spirit_1.png" id="9_1ukr5"]
+[ext_resource type="PackedScene" uid="uid://dlfo2pcrxno5j" path="res://scenes/hero_art.tscn" id="10_e8dxb"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_sh1ba"]
 animations = [{
@@ -28,7 +29,7 @@ animations = [{
 script = ExtResource("1_esosg")
 
 [node name="MapBasicPadding" type="Sprite2D" parent="."]
-modulate = Color(0.277528, 0.277528, 0.277528, 1)
+modulate = Color(0.125911, 0.125911, 0.125911, 1)
 position = Vector2(640, 400)
 scale = Vector2(1.111, 1.111)
 texture = ExtResource("1_hjl4w")
@@ -43,12 +44,16 @@ offset_bottom = 800.0
 
 [node name="Label" type="Label" parent="CanvasLayer/UI"]
 layout_mode = 0
-offset_right = 1280.0
-offset_bottom = 258.0
+offset_left = 185.0
+offset_top = 43.0
+offset_right = 1098.0
+offset_bottom = 547.0
 theme_override_constants/outline_size = 10
 theme_override_fonts/font = ExtResource("2_3ojqi")
-theme_override_font_sizes/font_size = 140
-text = "Wizards fight"
+theme_override_font_sizes/font_size = 50
+text = "Summoners 
+of 
+Buge"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -59,10 +64,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -217.0
-offset_top = 108.0
-offset_right = 218.0
-offset_bottom = 276.0
+offset_left = -138.0
+offset_top = 102.0
+offset_right = 128.0
+offset_bottom = 270.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -73,10 +78,10 @@ theme_override_font_sizes/font_size = 50
 text = "Fight!"
 
 [node name="Monito-1" type="AnimatedSprite2D" parent="CanvasLayer/UI/Control"]
-position = Vector2(-268, 275)
+position = Vector2(-347, 280)
 scale = Vector2(0.3, 0.3)
 sprite_frames = SubResource("SpriteFrames_sh1ba")
-frame_progress = 0.412252
+frame_progress = 0.319149
 
 [node name="Label2" type="Label" parent="CanvasLayer/UI"]
 layout_mode = 1
@@ -107,10 +112,10 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -310.0
-offset_top = -433.326
-offset_right = -90.0
-offset_bottom = -406.326
+offset_left = -1142.0
+offset_top = -262.326
+offset_right = -922.0
+offset_bottom = -235.326
 grow_horizontal = 0
 grow_vertical = 0
 theme_override_constants/outline_size = 5
@@ -126,10 +131,10 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -789.0
-offset_top = -465.0
-offset_right = -398.0
-offset_bottom = -408.0
+offset_left = -1221.0
+offset_top = -650.0
+offset_right = -830.0
+offset_bottom = -593.0
 grow_horizontal = 0
 grow_vertical = 0
 theme_override_constants/outline_size = 5
@@ -167,16 +172,21 @@ volume_db = 10.0
 autoplay = true
 
 [node name="WizHat" type="Sprite2D" parent="."]
-position = Vector2(1084, 306.674)
+position = Vector2(252, 477.674)
 scale = Vector2(0.276559, 0.276559)
 texture = ExtResource("7_5j32j")
 
 [node name="Mana1" type="Sprite2D" parent="."]
-position = Vector2(684, 290)
+position = Vector2(252, 105)
 texture = ExtResource("8_lyujm")
 
 [node name="Spirit1" type="Sprite2D" parent="."]
 position = Vector2(249, 295.5)
 texture = ExtResource("9_1ukr5")
+
+[node name="HeroArt" parent="." instance=ExtResource("10_e8dxb")]
+position = Vector2(887, 246)
+scale = Vector2(1.5, 1.5)
+metadata/_edit_lock_ = true
 
 [connection signal="button_down" from="CanvasLayer/UI/Control/Start Button" to="." method="_on_start_button_button_down"]
