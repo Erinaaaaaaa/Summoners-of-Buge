@@ -29,6 +29,7 @@ var spell_data = {
 			"max_speed": 300,
 			"damage_priority": 0,
 			"damage_capacity":3,
+			"wizard_kill_strength": 1000,
 		},
 		"sound":"res://sfx/no.wav"
 	},
@@ -42,6 +43,7 @@ var spell_data = {
 			"max_speed": 400,
 			"damage_priority": 1,
 			"damage_capacity":3,
+			"wizard_kill_strength": 1000,
 		},
 		"sound":"res://sfx/bounce.wav"
 	},
@@ -55,6 +57,7 @@ var spell_data = {
 			"max_speed": 200,
 			"damage_priority": -1,
 			"damage_capacity":10,
+			"wizard_kill_strength": 1000,
 		},
 		"sound":"res://sfx/bounce.wav"
 	},
@@ -64,10 +67,11 @@ var spell_data = {
 		"options": {
 			"sprite": "snipe",
 			"health":1,
-			"lifetime": 7,
-			"max_speed": 900,
+			"lifetime": 5,
+			"max_speed": 700,
 			"damage_priority": 4,
 			"damage_capacity":5,
+			"wizard_kill_strength": 2000,
 		},
 		"sound":"res://sfx/bounce.wav"
 	}
