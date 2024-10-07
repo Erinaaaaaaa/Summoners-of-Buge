@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://c6p3qanqbhxjk"]
+[gd_scene load_steps=21 format=3 uid="uid://c6p3qanqbhxjk"]
 
 [ext_resource type="Script" path="res://scenes/battlefield.gd" id="1_udail"]
 [ext_resource type="AudioStream" uid="uid://btj8pa4iwoslp" path="res://LD54 - Win Music.wav" id="2_qor7x"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://8d618kqa3fpk" path="res://placeholder/decoy.png" id="6_7vt73"]
 [ext_resource type="Texture2D" uid="uid://d0c6jsn4r8652" path="res://placeholder/basic.png" id="6_g1sbx"]
 [ext_resource type="Script" path="res://scenes/SpellsPanel.gd" id="6_phynt"]
+[ext_resource type="AudioStream" uid="uid://s1ltj76aak0f" path="res://sfx/cry.wav" id="7_oft67"]
 [ext_resource type="FontFile" uid="uid://djdjfk6est2gj" path="res://WorkSans-VariableFont_wght.ttf" id="9_7ijmf"]
 [ext_resource type="AudioStream" uid="uid://bgom8erlic70x" path="res://LD54 - Battle Music.wav" id="9_htctq"]
 [ext_resource type="Script" path="res://scenes/UI_canvas.gd" id="12_3homp"]
@@ -52,12 +53,24 @@ tracks/2/keys = {
 "update": 0,
 "values": [Vector2(1, 1)]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Control:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_gmmfw"]
 resource_name = "aiDeath"
 tracks/0/type = "value"
 tracks/0/imported = false
-tracks/0/enabled = true
+tracks/0/enabled = false
 tracks/0/path = NodePath(".:zoom")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
@@ -69,7 +82,7 @@ tracks/0/keys = {
 }
 tracks/1/type = "value"
 tracks/1/imported = false
-tracks/1/enabled = true
+tracks/1/enabled = false
 tracks/1/path = NodePath(".:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
@@ -91,6 +104,18 @@ tracks/2/keys = {
 "update": 0,
 "values": [0.0, 0.174533]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Control:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_2l4ay"]
 resource_name = "playerDeath"
@@ -104,11 +129,11 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 1),
 "transitions": PackedFloat32Array(0.4, 1),
 "update": 0,
-"values": [Vector2(1, 1), Vector2(2.5, 2.5)]
+"values": [Vector2(1, 1), Vector2(0.6, 0.6)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
-tracks/1/enabled = true
+tracks/1/enabled = false
 tracks/1/path = NodePath(".:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
@@ -129,6 +154,18 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(0.4, 1),
 "update": 0,
 "values": [0.0, -0.174533]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Control:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_v6q77"]
@@ -173,12 +210,15 @@ texture = ExtResource("5_5s0u7")
 
 [node name="WizardAI" parent="." node_paths=PackedStringArray("battlefield") instance=ExtResource("4_c0q7i")]
 position = Vector2(1160, 600)
+dash_cooldown = 3.0
 battlefield = NodePath("..")
+wizard_death = ExtResource("7_oft67")
 
 [node name="WizardPlayer" parent="." node_paths=PackedStringArray("battlefield") instance=ExtResource("5_m322d")]
 position = Vector2(120, 120)
 team = 1
 battlefield = NodePath("..")
+wizard_death = ExtResource("7_oft67")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(640, 400)
@@ -335,7 +375,7 @@ theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 10
 theme_override_fonts/font = ExtResource("9_7ijmf")
 theme_override_font_sizes/font_size = 90
-text = "Game Over!"
+text = "Game!"
 horizontal_alignment = 1
 vertical_alignment = 1
 

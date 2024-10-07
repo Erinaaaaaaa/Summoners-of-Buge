@@ -4,11 +4,14 @@ class_name Wizard
 #--- Exported vars ---
 @export_category("Properties")
 @export var team = Enums.Team.RED
+@export var dash_cooldown = 1.0
 
 @export_category("Prefabs")
 @export var max_mana = 6
 
 @export var battlefield : Battlefield
+
+@export var boids_detection_area : Area2D
 
 @export_category("Sounds")
 
@@ -26,6 +29,9 @@ var mana_display_instances = []
 var animation_time = 0
 var type: Enums.Player
 
+var can_dash = true
+var vel = Vector2(0,0)
+
 var mana_distance = 100
 var invincible = false
 
@@ -35,6 +41,7 @@ var casts_left = {
 	"decoy": 8*4,
 	"spee": 3*5
 }
+
 
 
 
@@ -50,6 +57,31 @@ func _process(delta):
 	if GameManager.is_game_running:
 		wizard_process(delta)
 		render_mana()
+		
+		# Dash code
+		if vel != Vector2.ZERO:
+			global_position += vel
+			vel.x *= 0.9
+			vel.y *= 0.9
+			
+			if vel.x < 0.1 and vel.x > -0.1: vel.x = 0
+			if vel.y < 0.1 and vel.y > -0.1: vel.y = 0
+			
+			check_bounds()
+
+
+var bottom_right = Vector2(1280, 720)
+
+func check_bounds():
+	if global_position.x < 0:
+		vel.x *= -1
+	if global_position.y < 0:
+		vel.y *= -1
+	
+	if global_position.x >  bottom_right.x:
+		vel.x *= -1
+	if global_position.y > bottom_right.y:
+		vel.y *= -1
 
 func init_mana() -> void:
 	while mana_display_instances.size() < max_mana:
@@ -165,7 +197,7 @@ func boid_killed(boid:Boid):
 
 func die():
 	wizard_on_death()
-	SoundManager.play_sound(wizard_death,1.2, -5)
+	SoundManager.play_sound(wizard_death,1.2, -6)
 	print("Wizard " + str(self) + " Fucking died!!!!!!")
 	$AnimationPlayer.play("death")
 	print($AnimationPlayer.current_animation)
@@ -181,6 +213,16 @@ func gain_mana(val):
 		mana = -1
 		die()
 
+func dash(direction_rad : float):
+	vel = Vector2.from_angle(direction_rad).normalized() * 25
+	can_dash = false
+	get_tree().create_timer(dash_cooldown).timeout.connect(func():
+		can_dash = true
+		var p = ParticlesManager.create_particle("tooltip", battlefield)
+		p.position = global_position
+		p.label.text = "Can dash again!"
+		p.label.modulate = Color.YELLOW
+	)
 
 func hit():
 	if invincible:
@@ -192,7 +234,30 @@ func hit():
 		SoundManager.play_sound(wizard_hurt, 1)
 ##
 
+# Returns a dictionary that holds informations in the surroundings boids
+# { total boids, boids of own team, boids of enemy team }
 
+func check_boids_around():
+	
+	var boids = []
+	var friendly_boids = []
+	var enemy_boids = []
+	
+	for a in boids_detection_area.get_overlapping_areas():
+		if a.is_in_group("boid"):
+			boids.append(a)
+	
+	for b : Boid in boids:
+		if b.team == self.team:
+			friendly_boids.append(b)
+		else:
+			enemy_boids.append(b)
+	
+	return {
+		"all_boids":boids.size(),
+		"friendly_boids":friendly_boids,
+		"enemy_boids":enemy_boids
+	}
 
 ## Functions used by children classes
 
