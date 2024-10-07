@@ -216,8 +216,10 @@ func gain_mana(val):
 
 func dash(direction_rad : float, enable_tooltip:bool = true):
 	vel = Vector2.from_angle(direction_rad).normalized() * 25
+	modulate = Color(1,1,2)
 	can_dash = false
 	get_tree().create_timer(dash_cooldown).timeout.connect(func():
+		modulate = Color(1,1,1)
 		can_dash = true
 		if enable_tooltip:
 			var p = ParticlesManager.create_particle("tooltip", battlefield)
