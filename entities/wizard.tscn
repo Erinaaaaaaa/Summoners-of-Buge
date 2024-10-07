@@ -117,6 +117,7 @@ radius = 228.009
 
 [node name="Wizard" type="Area2D" node_paths=PackedStringArray("boids_detection_area")]
 script = ExtResource("1_plydg")
+max_mana = 4
 boids_detection_area = NodePath("BoidDetectionArea")
 mana_up = ExtResource("6_u0eed")
 mana_down = ExtResource("10_icknh")
