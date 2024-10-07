@@ -1,16 +1,16 @@
 [gd_resource type="SpriteFrames" load_steps=3 format=3 uid="uid://bddk53hplbqwm"]
 
-[ext_resource type="Texture2D" uid="uid://dwabwfp85ijvu" path="res://sprites/creatures/butterfly_1.png" id="1_cc4oc"]
-[ext_resource type="Texture2D" uid="uid://dlnpogafnogel" path="res://sprites/creatures/butterfly_2.png" id="2_equ45"]
+[ext_resource type="Texture2D" uid="uid://dr8piaspwcohn" path="res://sprites/monocreatures/butterfly_1.png" id="1_5y14p"]
+[ext_resource type="Texture2D" uid="uid://dpymf05cbluy8" path="res://sprites/monocreatures/butterfly_2.png" id="2_kx0s6"]
 
 [resource]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("1_cc4oc")
+"texture": ExtResource("1_5y14p")
 }, {
 "duration": 1.0,
-"texture": ExtResource("2_equ45")
+"texture": ExtResource("2_kx0s6")
 }],
 "loop": true,
 "name": &"default",

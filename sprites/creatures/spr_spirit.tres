@@ -1,20 +1,20 @@
 [gd_resource type="SpriteFrames" load_steps=4 format=3 uid="uid://dp7blj2p70br6"]
 
-[ext_resource type="Texture2D" uid="uid://bs5w8rx6j6lax" path="res://sprites/creatures/spirit_1.png" id="1_rteu1"]
-[ext_resource type="Texture2D" uid="uid://biijv5rkgr41w" path="res://sprites/creatures/spirit_2.png" id="2_vvo32"]
-[ext_resource type="Texture2D" uid="uid://bmwrxgic4xn44" path="res://sprites/creatures/spirit_3.png" id="3_7dkam"]
+[ext_resource type="Texture2D" uid="uid://ccyahxvb3euwy" path="res://sprites/monocreatures/spirit_1.png" id="1_7nitf"]
+[ext_resource type="Texture2D" uid="uid://csy3c355ne68v" path="res://sprites/monocreatures/spirit_3.png" id="2_fe1u3"]
+[ext_resource type="Texture2D" uid="uid://dt11c24snx5qg" path="res://sprites/monocreatures/spirit_2.png" id="3_hg3j5"]
 
 [resource]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("1_rteu1")
+"texture": ExtResource("1_7nitf")
 }, {
 "duration": 1.0,
-"texture": ExtResource("2_vvo32")
+"texture": ExtResource("2_fe1u3")
 }, {
 "duration": 1.0,
-"texture": ExtResource("3_7dkam")
+"texture": ExtResource("3_hg3j5")
 }],
 "loop": true,
 "name": &"default",
