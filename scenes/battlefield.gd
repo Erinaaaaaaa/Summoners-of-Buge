@@ -34,6 +34,7 @@ func add_boid(boid_type : String, team : Enums.Team, position : Vector2, rotatio
 	boid_i.damage_priority = boid_settings["damage_priority"]
 	boid_i.lifetime = boid_settings["lifetime"]
 	boid_i.damage_capacity = boid_settings["damage_capacity"]
+	boid_i.wizard_kill_strength = boid_settings["wizard_kill_strength"]
 	boid_i.set_sprite(boid_settings["sprite"])
 	boid_i.set_team(team)
 	match team:
