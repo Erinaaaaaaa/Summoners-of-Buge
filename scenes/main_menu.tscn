@@ -6,9 +6,9 @@
 [ext_resource type="Texture2D" uid="uid://vmkwlc5o2wc2" path="res://sprites/monito-1.png" id="4_ne2hh"]
 [ext_resource type="AudioStream" uid="uid://c2274hkmxsai" path="res://LD54 - Menu Music.wav" id="4_x6wlp"]
 [ext_resource type="Texture2D" uid="uid://cs7x6446i6ncq" path="res://sprites/monito-0.png" id="5_gal55"]
-[ext_resource type="Texture2D" uid="uid://et6pd0y0x4h4" path="res://sprites/wizard/wiz_hat.png" id="7_5j32j"]
-[ext_resource type="Texture2D" uid="uid://sahb5416d347" path="res://sprites/mana/mana_1.png" id="8_lyujm"]
-[ext_resource type="Texture2D" uid="uid://bs5w8rx6j6lax" path="res://sprites/creatures/spirit_1.png" id="9_1ukr5"]
+[ext_resource type="Texture2D" uid="uid://bwm14olubttwj" path="res://sprites/info/right_click_is_dash.png" id="7_lr5dx"]
+[ext_resource type="Texture2D" uid="uid://b6ilwrxs03hpa" path="res://sprites/info/mana_is_health.png" id="8_4qoek"]
+[ext_resource type="Texture2D" uid="uid://xow0icmaxmg5" path="res://sprites/info/mana_is_summon.png" id="9_qiio6"]
 [ext_resource type="PackedScene" uid="uid://dlfo2pcrxno5j" path="res://scenes/hero_art.tscn" id="10_e8dxb"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_sh1ba"]
@@ -41,6 +41,7 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 1280.0
 offset_bottom = 800.0
+metadata/_edit_lock_ = true
 
 [node name="Label" type="Label" parent="CanvasLayer/UI"]
 layout_mode = 0
@@ -56,6 +57,7 @@ of
 Buge"
 horizontal_alignment = 1
 vertical_alignment = 1
+metadata/_edit_lock_ = true
 
 [node name="Control" type="VBoxContainer" parent="CanvasLayer/UI"]
 layout_mode = 1
@@ -112,10 +114,10 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -1142.0
-offset_top = -262.326
-offset_right = -922.0
-offset_bottom = -235.326
+offset_left = -1150.0
+offset_top = -241.0
+offset_right = -930.0
+offset_bottom = -213.0
 grow_horizontal = 0
 grow_vertical = 0
 theme_override_constants/outline_size = 5
@@ -131,17 +133,17 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -1221.0
-offset_top = -650.0
-offset_right = -830.0
-offset_bottom = -593.0
+offset_left = -1234.0
+offset_top = -630.0
+offset_right = -843.0
+offset_bottom = -573.0
 grow_horizontal = 0
 grow_vertical = 0
 theme_override_constants/outline_size = 5
 theme_override_fonts/font = ExtResource("2_3ojqi")
 theme_override_font_sizes/font_size = 22
 text = "Your mana is also your health.
-You die when your mana is negative!"
+You die if your mana goes negative!"
 horizontal_alignment = 1
 vertical_alignment = 2
 
@@ -152,10 +154,10 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -1229.0
-offset_top = -466.5
-offset_right = -838.0
-offset_bottom = -409.5
+offset_left = -1228.0
+offset_top = -429.0
+offset_right = -837.0
+offset_bottom = -372.0
 grow_horizontal = 0
 grow_vertical = 0
 theme_override_constants/outline_size = 5
@@ -172,17 +174,19 @@ volume_db = 10.0
 autoplay = true
 
 [node name="WizHat" type="Sprite2D" parent="."]
-position = Vector2(252, 477.674)
-scale = Vector2(0.276559, 0.276559)
-texture = ExtResource("7_5j32j")
+position = Vector2(248, 502)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("7_lr5dx")
 
 [node name="Mana1" type="Sprite2D" parent="."]
-position = Vector2(252, 105)
-texture = ExtResource("8_lyujm")
+position = Vector2(245, 94)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("8_4qoek")
 
 [node name="Spirit1" type="Sprite2D" parent="."]
-position = Vector2(249, 295.5)
-texture = ExtResource("9_1ukr5")
+position = Vector2(246, 316)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("9_qiio6")
 
 [node name="HeroArt" parent="." instance=ExtResource("10_e8dxb")]
 position = Vector2(887, 246)
