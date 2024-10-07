@@ -78,7 +78,7 @@ _data = {
 texture = ExtResource("1_gyh4s")
 
 [node name="Right_Hand" type="Sprite2D" parent="."]
-position = Vector2(-59, 304)
+position = Vector2(-112, 294)
 texture = ExtResource("2_mcoow")
 
 [node name="Left_Hand" type="Sprite2D" parent="."]
