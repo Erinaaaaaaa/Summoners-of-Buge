@@ -1,8 +1,8 @@
 [gd_scene load_steps=7 format=3 uid="uid://cq8v50q305aai"]
 
 [ext_resource type="Script" path="res://entities/boid.gd" id="1_q72bb"]
+[ext_resource type="AudioStream" uid="uid://hmu5bvndhch6" path="res://sfx/sticky.wav" id="2_7nmiu"]
 [ext_resource type="Texture2D" uid="uid://8d618kqa3fpk" path="res://placeholder/decoy.png" id="2_fxgud"]
-[ext_resource type="AudioStream" uid="uid://s1ltj76aak0f" path="res://sfx/cry.wav" id="3_uqw6i"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bgsxf"]
 size = Vector2(32, 27)
@@ -27,7 +27,7 @@ script = ExtResource("1_q72bb")
 sprite = NodePath("Sprite")
 raycasts_node = NodePath("Raycasts")
 vision_area = NodePath("Vision")
-boid_death = ExtResource("3_uqw6i")
+boid_death = ExtResource("2_7nmiu")
 
 [node name="CollisionShape" type="CollisionShape2D" parent="."]
 position = Vector2(0, -1.5)

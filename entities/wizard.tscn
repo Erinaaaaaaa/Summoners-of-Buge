@@ -4,10 +4,10 @@
 [ext_resource type="Texture2D" uid="uid://et6pd0y0x4h4" path="res://sprites/wizard/wiz_hat.png" id="2_4ornj"]
 [ext_resource type="AudioStream" uid="uid://bv1t00ob2yr1r" path="res://sfx/tacobell.wav" id="3_aaouy"]
 [ext_resource type="Script" path="res://global/SoundManager.gd" id="4_0n3gf"]
+[ext_resource type="AudioStream" uid="uid://3dc70negluwi" path="res://sfx/impulse.wav" id="4_uwm0b"]
 [ext_resource type="AudioStream" uid="uid://ccord1d0c67ca" path="res://sfx/hat.wav" id="6_u0eed"]
 [ext_resource type="AudioStream" uid="uid://3u6oyd5bas1e" path="res://sfx/no.wav" id="8_jo380"]
 [ext_resource type="AudioStream" uid="uid://bendpj2afj7vi" path="res://sfx/rice.wav" id="10_icknh"]
-[ext_resource type="AudioStream" uid="uid://b5xybpp8cno5v" path="res://sfx/slink.wav" id="11_ijxvm"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_83l56"]
 radius = 59.0762
@@ -116,8 +116,9 @@ _data = {
 script = ExtResource("1_plydg")
 mana_up = ExtResource("6_u0eed")
 mana_down = ExtResource("10_icknh")
+wizard_hurt = ExtResource("4_uwm0b")
 wizard_death = ExtResource("3_aaouy")
-fail_cast = ExtResource("11_ijxvm")
+fail_cast = ExtResource("8_jo380")
 no_cast = ExtResource("8_jo380")
 
 [node name="CollisionShape" type="CollisionShape2D" parent="."]

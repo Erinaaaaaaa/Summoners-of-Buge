@@ -22,14 +22,14 @@ class_name Wizard
 #--- Non-inspector exposed vars ---
 var mana = max_mana
 
-var player_wizard : Wizard
-
 var mana_display_instances = []
 var animation_time = 0
 var type: Enums.Player
 
 var mana_distance = 100
 var invincible = false
+
+var dead = false
 
 var casts_left = {
 	"decoy": 8*4,
@@ -47,8 +47,9 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	wizard_process(delta)
-	render_mana()
+	if GameManager.is_game_running:
+		wizard_process(delta)
+		render_mana()
 
 func init_mana() -> void:
 	while mana_display_instances.size() < max_mana:
@@ -91,6 +92,13 @@ func cast(spell_name : String, pos : Vector2):
 	
 	if !can_cast_spell(spell_name): 
 		SoundManager.play_sound(fail_cast,1.2)
+		var p = ParticlesManager.create_particle("tooltip", battlefield)
+		p.global_position = global_position
+		if mana == 0:
+			p.label.text = "No more mana!"
+		else:
+			p.label.text = "Can't cast more creatures!"
+		
 		return
 	
 		
@@ -157,7 +165,7 @@ func boid_killed(boid:Boid):
 
 func die():
 	wizard_on_death()
-	SoundManager.play_sound(wizard_death,1.2)
+	SoundManager.play_sound(wizard_death,1.2, -5)
 	print("Wizard " + str(self) + " Fucking died!!!!!!")
 	$AnimationPlayer.play("death")
 	print($AnimationPlayer.current_animation)
@@ -181,6 +189,7 @@ func hit():
 	gain_mana(-2)
 	if (mana >= 0):
 		$AnimationPlayer.play("invincibility")
+		SoundManager.play_sound(wizard_hurt, 1)
 ##
 
 
@@ -195,6 +204,7 @@ func wizard_on_death(): pass
 
 
 func _on_mana_recharge_timer_timeout():
+	if !GameManager.is_game_running: return
 	SoundManager.play_sound(mana_up,1.4)
 	gain_mana(1)
 

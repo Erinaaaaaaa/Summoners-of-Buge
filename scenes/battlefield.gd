@@ -6,9 +6,15 @@ var max_boids = 120
 
 var player : Wizard
 
+@export var music_player : AudioStreamPlayer2D
+@export var win_music : AudioStream
+@export var lose_music : AudioStream
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	GameManager.battlefield = self
+	GameManager.is_game_running = true
+	music_player.play()
 
 func add_boid(boid_type : String, team : Enums.Team, position : Vector2):
 	if  boids.size() >= max_boids:
@@ -47,6 +53,15 @@ func add_boid(boid_type : String, team : Enums.Team, position : Vector2):
 func boid_deleted(boid : Boid):
 	boids.erase(boid)
 
+
+func on_game_over(has_won : bool):
+	if has_won:
+		music_player.stream = win_music
+	else:
+		music_player.stream = lose_music
+	
+	music_player.play()
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
@@ -57,3 +72,8 @@ func _on_spell_button_down(spell_name):
 func anim_camera(animation):
 	print("battlefield anim camera")
 	$Camera2D/CameraAnimation.play(animation)
+
+
+func _on_music_finished():
+	if GameManager.is_game_running:
+		music_player.play()
