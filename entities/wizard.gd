@@ -40,7 +40,8 @@ var dead = false
 var casts_left = {
 	"decoy": 8*4,
 	"spee": 3*5,
-	"snipe": 1
+	"snipe": 1,
+	"spidler": 2*2
 }
 
 

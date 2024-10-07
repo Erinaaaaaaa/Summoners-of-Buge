@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://c6p3qanqbhxjk"]
+[gd_scene load_steps=23 format=3 uid="uid://c6p3qanqbhxjk"]
 
 [ext_resource type="Script" path="res://scenes/battlefield.gd" id="1_udail"]
 [ext_resource type="AudioStream" uid="uid://btj8pa4iwoslp" path="res://LD54 - Win Music.wav" id="2_qor7x"]
@@ -15,6 +15,7 @@
 [ext_resource type="AudioStream" uid="uid://bgom8erlic70x" path="res://LD54 - Battle Music.wav" id="9_htctq"]
 [ext_resource type="Script" path="res://scenes/UI_canvas.gd" id="12_3homp"]
 [ext_resource type="Texture2D" uid="uid://bhr7un6nvjkaa" path="res://placeholder/snipe.png" id="13_ts7s2"]
+[ext_resource type="Texture2D" uid="uid://cbdqrhrgbdkca" path="res://placeholder/spidler.png" id="14_ti1o5"]
 
 [sub_resource type="Animation" id="Animation_0paph"]
 length = 0.001
@@ -231,7 +232,7 @@ libraries = {
 "": SubResource("AnimationLibrary_v6q77")
 }
 
-[node name="Control" type="Control" parent="Camera2D" node_paths=PackedStringArray("decoy_left_label", "spee_left_label", "snipe_left_label", "battlefield")]
+[node name="Control" type="Control" parent="Camera2D" node_paths=PackedStringArray("decoy_left_label", "spee_left_label", "snipe_left_label", "spidler_left_label", "battlefield")]
 z_index = 30
 layout_mode = 3
 anchors_preset = 8
@@ -249,6 +250,7 @@ script = ExtResource("6_phynt")
 decoy_left_label = NodePath("Panel/HBoxContainer/PanelContainer2/Label")
 spee_left_label = NodePath("Panel/HBoxContainer/PanelContainer/Label")
 snipe_left_label = NodePath("Panel/HBoxContainer/PanelContainer3/Label")
+spidler_left_label = NodePath("Panel/HBoxContainer/PanelContainer4/Label")
 battlefield = NodePath("../..")
 
 [node name="Panel" type="Panel" parent="Camera2D/Control"]
@@ -361,6 +363,35 @@ text = "9999"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="Button5" type="Button" parent="Camera2D/Control/Panel/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/outline_size = 8
+theme_override_fonts/font = ExtResource("9_7ijmf")
+theme_override_font_sizes/font_size = 25
+text = "Spidler
+(2 mana)"
+
+[node name="PanelContainer4" type="PanelContainer" parent="Camera2D/Control/Panel/HBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Camera2D/Control/Panel/HBoxContainer/PanelContainer4"]
+layout_mode = 2
+texture = ExtResource("14_ti1o5")
+expand_mode = 1
+stretch_mode = 3
+
+[node name="Label" type="Label" parent="Camera2D/Control/Panel/HBoxContainer/PanelContainer4"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
+theme_override_fonts/font = ExtResource("9_7ijmf")
+theme_override_font_sizes/font_size = 35
+text = "9999"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Music" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("9_htctq")
 volume_db = 10.0
@@ -460,6 +491,7 @@ text = "Go back to Menu"
 [connection signal="button_down" from="Camera2D/Control/Panel/HBoxContainer/Button" to="." method="_on_spell_button_down" binds= ["decoy"]]
 [connection signal="button_down" from="Camera2D/Control/Panel/HBoxContainer/Button3" to="." method="_on_spell_button_down" binds= ["spee"]]
 [connection signal="button_down" from="Camera2D/Control/Panel/HBoxContainer/Button4" to="." method="_on_spell_button_down" binds= ["snipe"]]
+[connection signal="button_down" from="Camera2D/Control/Panel/HBoxContainer/Button5" to="." method="_on_spell_button_down" binds= ["spidler"]]
 [connection signal="finished" from="Music" to="." method="_on_music_finished"]
 [connection signal="button_down" from="CanvasLayer/UI/Panel/VBoxContainer/ButtonTryAgain" to="CanvasLayer" method="_on_button_try_again_button_down"]
 [connection signal="button_down" from="CanvasLayer/UI/Panel/VBoxContainer/ButtonMenu" to="CanvasLayer" method="_on_button_menu_button_down"]

@@ -13,7 +13,7 @@ var particles = {
 
 var sprites = {
 	"decoy": "res://sprites/creatures/spr_butterfly.tres",
-	"spidler": "res://placeholder/spidler.png",
+	"spidler": "res://sprites/creatures/spr_spidler.tres",
 	"spee": "res://sprites/creatures/spr_spirit.tres",
 	"snipe": "res://sprites/creatures/spr_snipe.tres"
 }
@@ -38,6 +38,17 @@ var spell_data = {
 			"lifetime": 10,
 			"max_speed": 400,
 			"damage_priority": 1
+		},
+		"sound":"res://sfx/bounce.wav"
+	},
+	"spidler": {
+		"cost":2,
+		"count":2,
+		"options": {
+			"sprite": "spidler",
+			"lifetime": 17,
+			"max_speed": 300,
+			"damage_priority": 2
 		},
 		"sound":"res://sfx/bounce.wav"
 	},
