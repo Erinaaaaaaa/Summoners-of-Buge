@@ -20,7 +20,9 @@ func wizard_process(delta):
 			for b in enemy_boids: avg_angle += global_position.angle_to_point(b.global_position)
 			avg_angle /= enemy_boids.size()
 			dash(avg_angle + PI/2, false)
-			cast("spee", global_position)
+			
+			cast(next_spell, global_position)
+			choose_next_spell()
 	
 	# 1/400 chance every frame to dash towards player
 	if can_dash:
@@ -35,9 +37,14 @@ func wizard_process(delta):
 			
 
 func choose_next_spell():
-	if randi()%2 == 0:
-		next_spell = "spee"
-	elif randi()%6 == 0:
-		next_spell = "snipe"
-	else:
-		next_spell = "decoy"
+	match(randi()%10):
+		1: next_spell = "decoy"
+		2: next_spell = "decoy"
+		3: next_spell = "decoy"
+		4: next_spell = "decoy"
+		5: next_spell = "spee"
+		6: next_spell = "spee"
+		7: next_spell = "spee"
+		8: next_spell = "snipe"
+		9: next_spell = "snipe"
+		10: next_spell = "spidler"

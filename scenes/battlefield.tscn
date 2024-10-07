@@ -212,7 +212,7 @@ texture = ExtResource("5_5s0u7")
 
 [node name="WizardAI" parent="." node_paths=PackedStringArray("battlefield") instance=ExtResource("4_c0q7i")]
 position = Vector2(1160, 600)
-mana_recharge_cooldown = 1.6
+mana_recharge_cooldown = 1.4
 max_mana = 7
 battlefield = NodePath("..")
 wizard_death = ExtResource("7_oft67")
